@@ -8,6 +8,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 import subprocess
+import platform
 import toml
 
 def execute_script(script_path):
@@ -23,8 +24,16 @@ def execute_script(script_path):
     os.chdir(script_directory)  # Change the current working directory to the script's directory
 
     try:
+        # Determine the platform to choose the correct executable
+        if platform.system() == 'Windows':
+            # Use pythonw.exe on Windows to prevent terminal window from opening
+            command = ['pythonw', script_path]
+        else:
+            # On macOS and Linux, just use python3
+            command = ['python3', script_path]
+
         # Run the script
-        subprocess.run(['python', script_path], check=True)
+        subprocess.run(command, check=True)
     finally:
         # Restore the original working directory after the script execution
         os.chdir(original_directory)
