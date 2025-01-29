@@ -4,12 +4,21 @@ just one button click away.  The script will automatically generate a User Inter
  button widgets and tabs according to the contents of its config file. The config file is
  TOML formatted.
 '''
+import sys
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 import subprocess
 import platform
 import toml
+try:
+    import terragen_rpc as tg
+except (ImportError, ModuleNotFoundError):
+    messagebox.showwarning(
+        "Terragen RPC Missing",
+        "Terragen RPC module is missing. Please see README file for installation instructions."
+        )
+    sys.exit(1)
 
 def execute_script(script_path):
     """Execute the script given by the full path, from its local directory."""
@@ -27,7 +36,7 @@ def execute_script(script_path):
         # Determine the platform to choose the correct executable
         if platform.system() == 'Windows':
             # Use pythonw.exe on Windows to prevent terminal window from opening
-            command = ['pythonw', script_path]
+            command = ['pyw', script_path]
         else:
             # On macOS and Linux, just use python3
             command = ['python3', script_path]
