@@ -36,7 +36,7 @@ def execute_script(script_path):
         # Determine the platform to choose the correct executable
         if platform.system() == 'Windows':
             # Use pythonw.exe on Windows to prevent terminal window from opening
-            command = ['pyw', script_path]
+            command = ['py', script_path]
         else:
             # On macOS and Linux, just use python3
             command = ['python3', script_path]
