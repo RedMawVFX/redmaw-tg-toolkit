@@ -12,6 +12,7 @@ The script's UI is colour coded to match the corresponding node colour in the
 Terragen UI.
 '''
 import os.path
+import platform
 import traceback
 import tkinter as tk
 from tkinter import messagebox
@@ -19,7 +20,8 @@ import terragen_rpc as tg
 
 gui = tk.Tk()
 gui.title(os.path.basename(__file__))
-gui.geometry("514x368")
+gui.geometry("566x362" if platform.system() == "Darwin" else
+             "514x368")
 # object, shader, camera, node network, lighting, renderer node colours
 gui_colours = ["#bdbdbd", "#ff7c8f", "#877c9b", "#666666", "#e4cfa6", "#be7c67"]
 gui.configure(bg=gui_colours[3])

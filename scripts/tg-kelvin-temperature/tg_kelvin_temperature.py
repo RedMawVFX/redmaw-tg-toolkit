@@ -3,12 +3,14 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import os
+import platform
 import traceback
 import terragen_rpc as tg
 
 gui = Tk()
 gui.title("tg_kelvin_temperature")
-gui.geometry("525x250")
+gui.geometry("640x234" if platform.system() == "Darwin" else
+             "525x250")
 gui.config(bg="#89B2B9") # dark green colour
 
 gui.rowconfigure(0,weight=2)

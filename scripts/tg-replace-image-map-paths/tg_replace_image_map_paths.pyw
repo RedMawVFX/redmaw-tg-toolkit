@@ -4,10 +4,12 @@ from tkinter import filedialog
 from tkinter import messagebox
 import traceback
 import os
+import platform
 import terragen_rpc as tg
 
 gui = Tk()
-gui.geometry("600x180")
+gui.geometry("800x138" if platform.system() == "Darwin" else
+             "600x180")
 gui.title("tg_replace_image_map_paths.py")
 
 frame0 = LabelFrame(gui,relief=FLAT)

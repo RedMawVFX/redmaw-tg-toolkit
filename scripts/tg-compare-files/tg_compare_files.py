@@ -1,4 +1,5 @@
 import os.path
+import platform
 import re
 import tkinter as tk
 from tkinter import ttk
@@ -7,7 +8,8 @@ from tkinter import messagebox
 import xml.etree.ElementTree as ET
 
 gui = tk.Tk()
-gui.geometry("710x960")
+gui.geometry("1021x960" if platform.system() == "Darwin" else
+             "710x960")
 gui.title(os.path.basename(__file__))
 
 file_selection_frame = tk.LabelFrame(gui, text = "Select files to compare")

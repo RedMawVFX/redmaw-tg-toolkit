@@ -1,10 +1,12 @@
+import platform
 from tkinter import *
 import terragen_rpc as tg
 
 # Window
 gui = Tk()
 gui.title("tg_transform_to_origin")
-gui.geometry("800x300")
+gui.geometry("900x300" if platform.system() == "Darwin" else
+             "800x300")
 
 gui.columnconfigure(0,weight=1)
 gui.rowconfigure(0,weight=1)

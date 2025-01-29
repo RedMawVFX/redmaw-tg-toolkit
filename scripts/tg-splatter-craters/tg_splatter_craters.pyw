@@ -6,6 +6,7 @@ randomly chosen based on min/max values in the UI.
 
 import os.path
 import random
+import platform
 import traceback
 import tkinter as tk
 from tkinter import ttk
@@ -59,7 +60,8 @@ class ToolTip:
             self.tooltip = None
 
 gui = tk.Tk()
-gui.geometry("600x580")
+gui.geometry("678x623" if platform.system() == "Darwin" else
+             "600x580")
 gui.title(os.path.basename(__file__))
 
 frame0 = tk.Frame(gui) # generic

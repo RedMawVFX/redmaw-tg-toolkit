@@ -1,9 +1,11 @@
+import platform
 from tkinter import *
 import terragen_rpc as tg
 
 gui = Tk()
 gui.title("tg_sunlight01_heading_elevation")
-gui.geometry("460x320")
+gui.geometry("761x304" if platform.system() == "Darwin" else
+             "460x320")
 
 frame1 = LabelFrame(gui,text="Set Sunlight01 heading in degrees ",padx=22,pady=10)
 frame2 = LabelFrame(gui,text="Set Sunlight01 elevation in degrees",padx=5,pady=5)

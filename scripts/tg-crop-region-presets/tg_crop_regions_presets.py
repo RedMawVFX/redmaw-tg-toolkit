@@ -4,13 +4,15 @@ from tkinter import messagebox
 from tkinter.filedialog import asksaveasfile
 from tkinter.filedialog import askopenfile
 import re
+import platform
 import traceback
 from PIL import ImageTk, Image
 import terragen_rpc as tg
 
 gui = Tk()
 gui.title("tg_crop_region_presets")
-gui.geometry("360x440")
+gui.geometry("510x478" if platform.system() == "Darwin" else
+             "360x440")
 gui.config(bg="#89B2B9")
 
 frame0 = LabelFrame(gui,relief=FLAT,bg="#B8DBD0")

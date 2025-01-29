@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import platform
 import sunpos as sp
 from datetime import datetime
 import terragen_rpc as tg
@@ -8,7 +9,8 @@ import traceback
 
 gui = Tk()
 gui.title("tg_time_of_day.py")
-gui.geometry("560x600")
+gui.geometry("732x661" if platform.system() == "Darwin" else
+             "560x600")
 gui.config(bg="#89B2B9") # dark green colour
 
 gui.rowconfigure(0,weight=1)

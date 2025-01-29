@@ -3,13 +3,15 @@ tg_find_nodes_in_project.py - Finds nodes in the Terragen project.  Can add or
 remove them from the currently selected nodes in the scene.
 '''
 import os.path
+import platform
 import traceback
 import tkinter as tk
 from tkinter import messagebox
 import terragen_rpc as tg
 
 gui = tk.Tk()
-gui.geometry("250x460")
+gui.geometry("353x478" if platform.system() == "Darwin" else
+             "250x460")
 gui.title(os.path.basename(__file__))
 gui_colours = ["#6f8e90", "#9db2b3", "#DBD0BD", "#D8C3BD", "#C1BDDB", "#DBBDC4"]
 gui.configure(bg=gui_colours[0])

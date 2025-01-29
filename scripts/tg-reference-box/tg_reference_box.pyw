@@ -11,12 +11,14 @@ The menubar includes a list of presets.
 '''
 
 import os.path
+import platform
 import traceback
 import tkinter as tk
 import terragen_rpc as tg
 
 gui = tk.Tk()
-gui.geometry("345x690")
+gui.geometry("530x696" if platform.system() == "Darwin" else
+             "345x690")
 gui.title(os.path.basename(__file__))
 
 frame0 = tk.LabelFrame(gui, text="Size of reference box in metres")

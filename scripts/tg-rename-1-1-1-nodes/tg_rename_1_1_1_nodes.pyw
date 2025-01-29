@@ -1,11 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import platform
 import traceback
 import terragen_rpc as tg
 
 gui = Tk()
-gui.geometry("650x640")
+gui.geometry("944x640" if platform.system() == "Darwin" else
+             "650x640")
 gui.title("tg_rename_1_1_1_nodes.py")
 gui.config(bg="#89B2B9")
 

@@ -4,6 +4,7 @@ from tkinter import messagebox
 from tkinter.filedialog import asksaveasfile
 from tkinter.filedialog import askopenfile
 import re
+import platform
 import terragen_rpc as tg
 
 def display_bookmarks():
@@ -37,7 +38,8 @@ def popup_help_utility_menu():
 
 gui = Tk()
 gui.title("tg_camera_bookmark")
-gui.geometry("475x500")
+gui.geometry("692x500" if platform.system() == "Darwin" else
+             "475x500")
 
 gui.columnconfigure(0,weight=2)
 gui.columnconfigure(1,weight=1)
