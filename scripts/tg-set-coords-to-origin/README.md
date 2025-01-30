@@ -16,8 +16,6 @@ Install the terragen_rpc module, via the pip install command. <br>
 Download this repository via “git clone [repository url]” <br>
 Terragen 4 should be running when you run this script.
 
-In this repository you’ll find two Python scripts, which are identical except for their file extensions.  The file ending in .PY will open a command window when run, while the file ending in .PYW will not.  I recommend using the file with the .PYW extension when the script is run or called from an external file or controller device like a Tourbox.
-
 ### Usage
 This script has no UI.  In Terragen’s Node Network select the nodes you wish to set to the origin of the project.  Run the script.  The node’s coordinates will be set to the xyz coordinates <0, 0, 0>.
 

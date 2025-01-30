@@ -7,7 +7,9 @@ Any camera’s “position”, “rotation” and “focal length in mm” param
 
 ### Requirements:
 
-Terragen 4 Professional v4.6.31 <br>
+Terragen 4 Professional v4.6.31 (or later)<br>
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk/
 
 terragen-rpc <br>
@@ -15,9 +17,9 @@ https://github.com/planetside-software/terragen-rpc
 
 ### Installation:
 
-Make sure you’ve installed Terragen 4 Professional v4.6.31 or greater on your computer, and installed the terragen_rpc module via the pip install command.
+Make sure you’ve installed a version of Terragen 4 that includes the remote procedure call (RPC) feature on your computer.  Install the terragen_rpc module via the pip install command.
 
-In this repository you’ll find the Python script “tg_camera_bookmarks.py” and supporting example content.  This includes several Terragen 4 project files (.tgd) and preset “bookmark” text files (.txt); as well as assorted low-res 3D assets located in the Project_Assets folder. The images folder contains an icon file, should you wish to create a shortcut on your desktop for the python script.
+In this repository you’ll find the Python script “tg_camera_bookmarks.pyw” and supporting example content.  This includes several Terragen 4 project files (.tgd) and preset “bookmark” text files (.txt); as well as assorted low-res 3D assets located in the Project_Assets folder. The images folder contains an icon file, should you wish to create a shortcut on your desktop for the python script.
 
 
 ### Usage:

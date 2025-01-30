@@ -4,14 +4,16 @@ Back up your Terragen project file before running this script.  <br /> This work
 
 ## Requirements
 
-Terragen 4 Professional v4.6.31 <br >
+Terragen 4 Professional v4.6.31 (or later)<br >
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk
 
 terragen-rpc <br />
 https://github.com/planetside-software/terragen-rpc
 
 ## Installation
-Make sure you've installed Terragen 4 Professional v4.6.31 or greater on your computer, and installed the terragen_rpc module via the pip install command.
+Make sure you've installed a version of Terragen 4 that includes the remote procedure call (RPC) feature on your computer.  Install the terragen_rpc module via the pip install command.
 
 ## Usage
 ![tg_replace_image_map_paths GUI](images/tg_replace_image_map_paths_gui.jpg) <br />

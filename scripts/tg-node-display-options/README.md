@@ -24,8 +24,6 @@ Install the terragen_rpc module, via the pip install command. <br>
 Download this repository via “git clone [repository url]” <br>
 Terragen 4 should be running when you run this script. <br>
 
-In this repository you’ll find two Python scripts, which are identical except for their file extensions.  The file ending in .PY will open a command window when run, while the file ending in .PYW will not.  I recommend using the file with the .PYW extension when the script is run or called from an external file or controller device like a Tourbox.
-
 ### Usage
 Click a radio button to select the type of node (class) you want to affect. For example, checking the “TGO reader” button will allow the preview options of all TGO formatted objects in the project to be affected.  Most types of nodes have only one preview option, but a few have more than one.  The Camera class includes three preview options: Body, Frustum, and Path. For those options to be affected, make sure their check buttons have been checked.  
 

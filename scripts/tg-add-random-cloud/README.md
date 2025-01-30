@@ -9,6 +9,8 @@ Have you ever wanted to quickly add some clouds to a project, while not really c
 ### Requirements:
 
 Terragen 4 Professional v4.6.31 (or later) <br>
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk/ <br>
 
 terragen-rpc <br>

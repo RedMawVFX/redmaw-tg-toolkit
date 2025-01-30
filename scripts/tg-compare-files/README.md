@@ -20,7 +20,7 @@ Two Terragen project files saved to disk.
 
 ### Installation:
 In this repository you'll find two Python scripts.<br>
-tg_compare_files.py <br>
+tg_compare_files.pyw <br>
 tg_compare_files_cli.py <br>
 
 *Note: The CLI version does not allow comparing any node from File 1 with any node from File 2.* 

@@ -5,6 +5,8 @@ A fully functional Python script implementing Terragen 4 Professional’s remote
 ### Requirements:
 
 Terragen 4 Professional v4.6.31 (or later) <br>
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk/
 
 terragen-rpc <br>
@@ -17,7 +19,7 @@ https://pypi.org/project/Pillow/
 
 Make sure you’ve installed Terragen 4 Professional v4.6.31 or greater on your computer, and installed the terragen_rpc module and Pillow fork, via the pip install command. <br>
 
-In this repository you’ll find the Python script “tg_crop_region_presets.py” and supporting example content. The images folder contains an icon file, should you wish to create a shortcut on your desktop for the python script, as well as the bitmap images used for the button widgets on the graphic interface.
+In this repository you’ll find the Python script “tg_crop_region_presets.pyw” and supporting example content. The images folder contains an icon file, should you wish to create a shortcut on your desktop for the python script, as well as the bitmap images used for the button widgets on the graphic interface.
 
 ### Usage:
 ![tg_crop_region_presets GUI](images/tg_crop_region_presets_gui.jpg) <br>

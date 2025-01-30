@@ -13,12 +13,12 @@ The menubar includes a list of presets.
 
 ### Requirements <br>
 Terragen 4 Professional v4.6.31 (or later) <br>
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk/
 
 ### Installation 
-Install Terragen 4 Professional v4.6.31 or greater on your computer.  Terragen should be running when you run this script.
-
-In this repository you’ll find two Python scripts, which are identical except for their file extensions.  The file ending in .PY will open a command window when run, while the file ending in .PYW will not.  I recommend using the file with the .PYW extension when the script is run or called from an external file or controller device like a Tourbox.
+Install a version of Terragen 4 that includes the remote procedure call (RPC) feature on your computer.  Terragen should be running when you run this script.
 
 ### Usage
 When run, the UI presents controls for determining placement, size, and rotation of a reference box in the active Terragen project.  Additional controls for adding, selecting colour, and modifying boxes are provided.

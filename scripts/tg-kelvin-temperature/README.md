@@ -6,6 +6,8 @@ This script incorporates Andreas Siess’s “RGB to Color Temperature” Python
 ### Requirements:
 
 Terragen 4 Professional v4.6.31 (or later) <br>
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk/
 
 terragen-rpc <br>

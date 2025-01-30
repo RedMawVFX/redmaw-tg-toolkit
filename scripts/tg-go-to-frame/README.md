@@ -5,12 +5,12 @@ Sets the current frame in the Terragen project.
 
 ### Requirements
 Terragen 4 Professional v4.6.31 (or later) <br>
+or Terragen 4 Creative (4.7.15 or later) <br>
+or Terragen 4 Free (4.7.15 or later) <br>
 https://planetside.co.uk/
 
 ### Installation
-Install Terragen 4 Professional v4.6.31 or greater on your computer.
-
-In this repository you’ll find two Python scripts, which are identical except for their file extensions.  The file ending in .PY will open a command window when run, while the file ending in .PYW will not.  I recommend using the file with the .PYW extension when the script is run or called from an external file or controller device like a Tourbox.
+Install a version of Terragen 4 that includes the remote procedure call (RPC) feature on your computer.
 
 ### Usage
 When run, the UI presents a single Entry widget called “<b>Go to frame</b>” which accepts integer values. The default value is the current frame, and this value can be retrieved at any time by pressing the <b>Escape key</b>.   The current frame and timeline will automatically update as characters are entered.  The <b>Up Arrow</b> and <b>Down Arrow</b> will advance the current frame forward or backwards respectively by one frame.  Scrolling the <b>middle mouse button</b> will advance the “Go to frame” value, but you must click another key, such as the <b>Enter</b> key, to set the current frame and update the timeline.

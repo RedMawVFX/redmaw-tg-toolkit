@@ -20,8 +20,6 @@ Install the terragen_rpc module, via the pip install command. <br>
 Download this repository via “git clone [repository url]” <br>
 Terragen 4 should be running when you run this script. <br>
 
-In this repository you’ll find two Python scripts, which are identical except for their file extensions.  The file ending in .PY will open a command window when run, while the file ending in .PYW will not.  I recommend using the file with the .PYW extension when the script is run or called from an external file or controller device like a Tourbox.
-
 ### Usage
 When the script is executed the UI will present a list of all the nodes at the root level of the project. You can refine the items displayed in the list by entering text in the “<b>Search pattern</b>” field, or click on the “<b>Clear</b>” button to clear the search pattern and display all the nodes.  The “<b>Refresh</b>” button updates the list with the current nodes in the project.
 
