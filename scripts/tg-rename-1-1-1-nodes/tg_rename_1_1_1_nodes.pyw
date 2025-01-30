@@ -1,14 +1,15 @@
+import os.path
+import platform
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-import platform
 import traceback
 import terragen_rpc as tg
 
 gui = Tk()
 gui.geometry("944x640" if platform.system() == "Darwin" else
              "650x640")
-gui.title("tg_rename_1_1_1_nodes.py")
+gui.title(os.path.basename(__file__))
 gui.config(bg="#89B2B9")
 
 gui.rowconfigure(0,weight=1)
@@ -256,7 +257,9 @@ select_all_button.grid(row=1,column=1,padx=20,pady=4)
 select_none_button = Button(frame2,text="Select none",command=listbox_select_none)
 select_none_button.grid(row=1,column=2,padx=5,pady=4)
 
-rename_button = Button(frame2,text="Rename nodes",bg='gold',command=rename_selected_nodes)
-rename_button.grid(row=1,column=4,padx=20,pady=4)
+rename_button = Button(frame2, text="Rename nodes", command=rename_selected_nodes)
+if platform.system() == "Windows":
+    rename_button.config(bg='gold')
+rename_button.grid(row=1, column=4, padx=20, pady=4)
 
 gui.mainloop()

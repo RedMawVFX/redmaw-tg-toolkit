@@ -1,14 +1,15 @@
+import os.path
+import platform
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-import platform
 import sunpos as sp
 from datetime import datetime
 import terragen_rpc as tg
 import traceback
 
 gui = Tk()
-gui.title("tg_time_of_day.py")
+gui.title(os.path.basename(__file__))
 gui.geometry("732x661" if platform.system() == "Darwin" else
              "560x600")
 gui.config(bg="#89B2B9") # dark green colour
@@ -244,7 +245,9 @@ else:
     show_error("No sunlight nodes in project or Terragen not running.")
 suns_combobox.grid(row=0,column=0)
 
-toggle_sun_button = Button(frame0,text="Sun on/off",bg='pink',command=checkbox_sun)
+toggle_sun_button = Button(frame0, text="Sun on/off", command=checkbox_sun)
+if platform.system() == "Windows":
+    toggle_sun_button.config(bg='pink')
 toggle_sun_button.grid(row=1,column=1,sticky="w",padx=4,pady=4)
 refresh_sun_button = Button(frame0,text="Refresh list",command=update_sun_combobox_list)
 refresh_sun_button.grid(row=0,column=1,sticky="w",padx=4)
@@ -335,7 +338,9 @@ latitude_entry.grid(row=7, column =1)
 longitude_entry.grid (row=8,column =1)    
 
 # APPLY Button
-apply_button = Button(frame1,text='Apply to Sun',bg='yellow',command=when_where)
+apply_button = Button(frame1, text='Apply to Sun', command=when_where)
+if platform.system() == "Windows":
+    apply_button.config(bg='yellow')
 apply_button.grid(row=10,column=1,sticky="w",columnspan=2,padx=2,pady=8)
 
 # Frame 3 elements
@@ -375,7 +380,9 @@ cameras_combobox.grid(row=0,column=0)
 exposure_label = Label (frame4,text="Exposure: ",bg="#CDCB9A")
 exposure_slider_label = Scale(frame4,from_= 0, to = 10,variable=exposure,orient=HORIZONTAL,showvalue=1,bg="#CDCB9A")
 # exposure_entry = Entry(frame4,textvariable = exposure, width =6)
-apply_exposure_button = Button(frame4,text="Apply exposure",bg='#A5A8EC',command=apply_exposure) # was pink
+apply_exposure_button = Button(frame4, text="Apply exposure", command=apply_exposure)
+if platform.system() == "Windows":
+    apply_exposure_button.config(bg="#A5A8EC")
 refresh_camera_button = Button(frame4,text="Refresh list",command=update_camera_list )
 
 # cameras_label.grid(row=0,column=0,sticky='w')

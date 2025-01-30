@@ -1,14 +1,14 @@
+import os
+import platform
+import traceback
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from PIL import ImageTk, Image
-import os
-import platform
-import traceback
 import terragen_rpc as tg
 
 gui = Tk()
-gui.title("tg_kelvin_temperature")
+gui.title(os.path.basename(__file__))
 gui.geometry("640x234" if platform.system() == "Darwin" else
              "525x250")
 gui.config(bg="#89B2B9") # dark green colour
@@ -28,6 +28,15 @@ frame2.grid(row=1,column=0,sticky="WENS",padx=3)
 frame3.grid(row=1,column=1,sticky="WENS",padx=3)
 
 def load_image(image_path):
+    '''
+    Load an image from a file.
+    
+    Args:
+        image_path (str): The path to the image file.
+    
+    Returns:
+        Image: The image object.
+    '''
     if os.path.exists(image_path):
         return Image.open(image_path)
     else:
@@ -38,9 +47,13 @@ image_open = load_image(image_path)
 if image_open:
     image1 = ImageTk.PhotoImage(image_open)
 
-# The rest of the code will go here
-
 def get_sunlight_nodes_in_project():
+    '''
+    Get all the sunlight nodes in the project.
+    
+    Returns:
+        list: A list of sunlight node paths.
+    '''
     try:
         project = tg.root()
         return get_sunlight_nodes_in_node(project)
@@ -58,7 +71,15 @@ def get_sunlight_nodes_in_project():
         return([])
 
 def get_sunlight_nodes_in_node(in_node):
-    # returns a list of sunlight node paths. Lists could be empty if no sunlight nodes exist.
+    '''
+    Returns a list of sunlight node paths. Lists could be empty if no sunlight nodes exist.
+
+    Args:
+        in_node <obj>: The node id to search for sunlight nodes.
+
+    Returns:
+        list: A list of sunlight node paths.
+    '''
     try:
         node_paths = []
         all_children = in_node.children()
@@ -70,7 +91,6 @@ def get_sunlight_nodes_in_node(in_node):
                 deeper_paths = get_sunlight_nodes_in_node(child)
                 node_paths.extend(deeper_paths)
         return node_paths
-    
     except ConnectionError as e:
         popup_warning("Terragen RPC connection error",str(e))
         return([])
@@ -84,7 +104,13 @@ def get_sunlight_nodes_in_node(in_node):
         popup_warning("Terragen RPC API error",traceback.format_exc())
         return([])
 
-def refresh():    
+def refresh() -> None:
+    '''
+    Refresh the list of sunlight nodes in the project.
+    
+    Returns:
+        None
+    '''
     global sunlight_paths
     sunlight_paths = get_sunlight_nodes_in_project()
     sunlight_combobox.set('') # clears the selected value, ensures nothing is displayed
@@ -92,29 +118,59 @@ def refresh():
     if len(sunlight_paths) > 0:
         sunlight_combobox.current(0)
 
-def apply_kelvin():
+def apply_kelvin() -> None:
+    '''
+    Apply the Kelvin temperature to the selected sunlight node.
+
+    Returns:
+        None
+    '''
     kelvin_as_srgb = kelvin_table[kelvin.get()] # returns tuple from dictionary
     kelvin_as_decimal = srgb_to_decimal(kelvin_as_srgb) # decimal as a list
     set_sunlight_node_in_project(kelvin_as_decimal)
 
 def srgb_to_decimal(sRGB):
+    '''
+    Convert sRGB to decimal.
+
+    Args:
+        sRGB (tuple): The colour in sRGB format.
+
+    Returns:
+        srgb_list_to_tuple: The colour in decimal format.
+    '''
     srgb_list = []
     for i in range(len(sRGB)):
-        srgb_list.append(pow(sRGB[i]/255,2.2))
+        srgb_list.append(pow(sRGB[i]/255, 2.2))
     srgb_list_to_tuple = tuple(srgb_list)
     return srgb_list_to_tuple
 
-def set_sunlight_node_in_project(kelvin_decimal):
+def set_sunlight_node_in_project(kelvin_decimal) -> None:
+    '''
+    Set the colour of the selected sunlight node in the project.
+
+    Args:
+        kelvin_decimal (tuple): The colour in decimal format.
+
+    Returns:
+        None
+    '''
     index = sunlight_combobox.current()
     if index < 0:
-        popup_warning("TclError","No Sunlight nodes in project. \nAdd Sunlight node and refresh list. \n")
+        popup_warning(
+            "TclError",
+            "No Sunlight nodes in project. \nAdd Sunlight node and refresh list. \n"
+            )
         return
     try:
         node = tg.node_by_path(sunlight_paths[index])
         if node:
             node.set_param('colour',kelvin_decimal)
         else:
-            popup_warning("Terragen Warning","Selected Sunlight node no longer in project. \nRefresh list. \n")
+            popup_warning(
+                "Terragen Warning",
+                "Selected Sunlight node no longer in project. \nRefresh list. \n"
+                )
     except ConnectionError as e:
         popup_warning("Terragen RPC connection error",str(e))
     except TimeoutError as e:
@@ -124,8 +180,18 @@ def set_sunlight_node_in_project(kelvin_decimal):
     except tg.ApiError:
         popup_warning("Terragen RPC API error",traceback.format_exc())
 
-def popup_warning(message_title,message_description):
-    messagebox.showwarning(title = message_title,message = message_description)
+def popup_warning(message_title,message_description) -> None:
+    '''
+    Display warning message box.
+
+    Args:
+    message_title (str): Title of the message box.
+    message_description (str): Description of the message box.
+
+    Returns:
+        None
+    '''
+    messagebox.showwarning(title=message_title, message=message_description)
 
 # dictionary
 kelvin_table = {
@@ -250,49 +316,102 @@ kelvin = IntVar()
 sunlight_paths = get_sunlight_nodes_in_project()
 
 # checkbox
-recursive_checkbox = Checkbutton(frame0,text="Recursive search?",variable=recursive_search,bg="#B8DBD0",padx=10,pady=10)
-recursive_checkbox.grid(row=0,column=0,sticky='w')
+recursive_checkbox = Checkbutton(
+    frame0,
+    text="Recursive search?",
+    variable=recursive_search,
+    bg="#B8DBD0",
+    padx=10,
+    pady=10
+    )
+recursive_checkbox.grid(row=0, column=0, sticky='w')
 
 # text labels
-text01 = Label(frame0,text='Select Sunlight node.',relief = FLAT,bg="#B8DBD0",padx=10,pady=10)
-text02 = Label(frame2,text="Click button to refresh list.",relief=FLAT,bg="#B8DBD0",padx=10,pady=10)
-text03 = Label(frame1,text="Select Kelvin temperature.",bg="#CBAE98",relief=FLAT,padx=10,pady=10)
-text04 = Label(frame3,text="Click button to apply Kelvin temperature to selected sunlight.",relief=FLAT,bg="#CBAE98",padx=10,pady=10)
-text01.grid(row=2,column=0,sticky='w')
-text02.grid(row=0,column=0,sticky="w")
-text03.grid(row=0,column=0,sticky="w")
-text04.grid(row=0,column=0,sticky="w")
+text01 = Label(
+    frame0,
+    text='Select Sunlight node.',
+    relief=FLAT,
+    bg="#B8DBD0",
+    padx=10,
+    pady=10
+    )
+text02 = Label(
+    frame2,
+    text="Click button to refresh list.",
+    relief=FLAT,
+    bg="#B8DBD0",
+    padx=10,
+    pady=10
+    )
+text03 = Label(
+    frame1,
+    text="Select Kelvin temperature.",
+    bg="#CBAE98",
+    relief=FLAT,
+    padx=10,
+    pady=10
+    )
+text04 = Label(
+    frame3,
+    text="Click button to apply Kelvin temperature to selected sunlight.",
+    relief=FLAT,
+    bg="#CBAE98",
+    padx=10,
+    pady=10
+    )
+text01.grid(row=2, column=0, sticky='w')
+text02.grid(row=0, column=0, sticky="w")
+text03.grid(row=0, column=0, sticky="w")
+text04.grid(row=0, column=0, sticky="w")
 
 # bitmap image or text
 if image_open:
-    kelvin_image = Label(frame1,image=image1,background="#CBAE98")
-    kelvin_image.grid(row=1,column=0,padx=10)
+    kelvin_image = Label(frame1, image=image1, background="#CBAE98")
+    kelvin_image.grid(row=1, column=0, padx=10)
 else:
-    kelvin_image = Label(frame1,text="<-- 1000k warm colours, cool colours 12,000k -->",background="#CBAE98")
-    kelvin_image.grid(row=1,column=0,padx=10)
+    kelvin_image = Label(
+        frame1,
+        text="<-- 1000k warm colours, cool colours 12,000k -->",
+        background="#CBAE98"
+        )
+    kelvin_image.grid(row=1, column=0, padx=10)
 
 # slider
-kelvin_slider = Scale(frame1,from_ = 1000, to = 12000, variable =kelvin,orient=HORIZONTAL,showvalue =1,resolution=100,length=300,bg="#CBAE98",troughcolor="#B8DBD0",highlightthickness=0,highlightbackground="#CBAE98")
+kelvin_slider = Scale(
+    frame1,
+    from_ = 1000,
+    to = 12000,
+    variable = kelvin,
+    orient=HORIZONTAL,
+    showvalue=1,
+    resolution=100,
+    length=300,
+    bg="#CBAE98",
+    troughcolor="#B8DBD0",
+    highlightthickness=0,
+    highlightbackground="#CBAE98"
+    )
 kelvin_slider.grid(row=6,column=0,sticky='w',padx=10)
 
 # combobox
-sunlight_combobox = ttk.Combobox(frame0,textvariable=selected_sunlight,state="readonly")
+sunlight_combobox = ttk.Combobox(frame0, textvariable=selected_sunlight, state="readonly")
 sunlight_combobox["values"] = sunlight_paths
 if len(sunlight_paths) > 0:
     sunlight_combobox.current(0)
-sunlight_combobox.grid(row=3,column=0,padx=10)
+sunlight_combobox.grid(row=3, column=0, padx=10)
 
 # buttons
-refresh_button = Button(frame2,text="Refresh",command=refresh)
-refresh_button.grid(row=2,column=0)
-apply_button = Button(frame3,text="Apply Kelvin",bg='gold',command=apply_kelvin)
-apply_button.grid(row=1,column=0)
+refresh_button = Button(frame2, text="Refresh", command=refresh)
+refresh_button.grid(row=2, column=0)
+apply_button = Button(frame3, text="Apply Kelvin", command=apply_kelvin)
+if platform.system() == "Windows":
+    apply_button.config(bg="gold")
+apply_button.grid(row=1, column=0)
 
 # empty space
-empty_row1 = Label(frame0,text=" ",bg="#B8D8D0")
-empty_row2 = Label(frame1,text=" ",bg="#CBAE98")
+empty_row1 = Label(frame0, text=" ", bg="#B8D8D0")
+empty_row2 = Label(frame1, text=" ", bg="#CBAE98")
 empty_row1.grid(row=1)
 empty_row2.grid(row=2)
 
-# Keep the following line at the very end of the program
 gui.mainloop()

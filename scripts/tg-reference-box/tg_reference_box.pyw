@@ -496,9 +496,10 @@ align_on_base.grid(row=6, column=2, columnspan=2, padx=4, pady=4, sticky="w")
 
 reset_size_modifier_b = tk.Button(frame0,
                                   text="Reset modifier",
-                                  bg="#E7D8E7",
                                   command=on_reset_modifier_button_click
                                   )
+if platform.system() == "Windows":
+    reset_size_modifier_b.config(bg="#E7D8E7")
 reset_size_modifier_b.grid(row=5, column=0, columnspan=2, padx=4, pady=4, sticky="w")
 
 # frame 1 - rotation slider and reset button
@@ -524,9 +525,10 @@ rotate_entry.bind("<FocusOut>", update_rotation_slider_from_entry)
 
 reset_rot_b = tk.Button(frame1,
                         text="Reset rotation",
-                        bg="#E7D8E7",
                         command=on_reset_rotation_button_click
                         )
+if platform.system() == "Windows":
+    reset_rot_b.config(bg="#E7D8E7")
 reset_rot_b.grid(row=1, column=0, columnspan=2, padx=4, pady=4, sticky="w")
 
 # frame 2 - colour Buttons

@@ -2,11 +2,13 @@
 Adds a landmark object to the project, either at the origin of the project
 or the coordinates in the clipboard.
 '''
+import os.path
+import platform
 import tkinter as tk
 import terragen_rpc as tg
 
 gui = tk.Tk()
-gui.title("tg_landmark")
+gui.title(os.path.basename(__file__))
 gui.geometry("500x250")
 
 # Frame setup
@@ -146,7 +148,10 @@ r4.grid(row=1,column=3)
 label1 = tk.Label(frame1, text=" ")
 label1.grid(row=2,columnspan=4)
 
-button1 = tk.Button(frame1, text="Add landmark", bg="green", fg="white", command=add_landmark)
+button1 = tk.Button(frame1, text="Add landmark", command=add_landmark)
+if platform.system() == "Windows":
+    button1.config(bg="green")
+    button1.config(fg="white")
 button1.grid(row=3, columnspan=4)
 
 # frame2
@@ -162,7 +167,10 @@ r8.grid(row=1, column=3)
 label2 = tk.Label(frame2, text="Copy coordinates to clipboard first!",fg="blue")
 label2.grid(row=2,columnspan=4)
 
-button2 = tk.Button(frame2, text="Add landmark", bg="blue", fg="white", command=add_landmark_at)
+button2 = tk.Button(frame2, text="Add landmark", command=add_landmark_at)
+if platform.system() == "Windows":
+    button2.config(bg="blue")
+    button2.config(fg="white")
 button2.grid(row=3, columnspan=4)
 
 # frame3

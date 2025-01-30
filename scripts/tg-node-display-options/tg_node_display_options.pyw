@@ -449,7 +449,9 @@ path = tk.Checkbutton(
 path.grid(row=0, column=5, padx=4, pady=4, sticky="w")
 
 # buttons
-apply = tk.Button(button_frame, text="Apply", command=on_apply, bg=apply_button_var.get())
+apply = tk.Button(button_frame, text="Apply", command=on_apply)
+if platform.system() == "Windows":
+    apply.config(bg=apply_button_var.get())
 apply.grid(row=0, column=0, padx=4, pady=4, sticky="w")
 
 tk.Label(button_frame, text="", width=19).grid(row=0, column=1)

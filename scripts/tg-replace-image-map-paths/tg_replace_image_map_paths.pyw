@@ -1,16 +1,16 @@
+import os
+import platform
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
 import traceback
-import os
-import platform
 import terragen_rpc as tg
 
 gui = Tk()
 gui.geometry("800x138" if platform.system() == "Darwin" else
              "600x180")
-gui.title("tg_replace_image_map_paths.py")
+gui.title(os.path.basename(__file__))
 
 frame0 = LabelFrame(gui,relief=FLAT)
 frame1 = LabelFrame(gui,relief=FLAT)
@@ -81,7 +81,9 @@ new_filepath_b = Button(frame0,text="Browse",command=on_browse_new)
 old_folder_b.grid(row=0,column=2,padx=5,pady=5)
 new_filepath_b.grid(row=1,column=2,padx=5,pady=5)
 
-go_b = Button(frame1,text="Replace paths that match old file paths",command=on_go,bg="yellow")
+go_b = Button(frame1,text="Replace paths that match old file paths",command=on_go)
+if platform.system() == "Windows":
+    go_b.config(bg="yellow")
 go_b.grid(row=2,column=2)
 
 gui.mainloop()
