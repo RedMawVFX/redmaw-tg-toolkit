@@ -33,7 +33,7 @@ Save the ZIP archive to your computer. <br>
 Extract the folder structure and files from the ZIP archive.
 </ul>
 
-You can install the dependency modules via the Git Bash shell as follows:
+You can install the dependency modules at a command prompt or terminal as follows:
 <ul>
 Windows: <ul>py -m pip install toml <br> py -m pip install Pillow <br> py -m pip install terragen-rpc<br></ul><br>
 MacOS:<ul> python3 -m pip install toml<br> python3 -m pip install Pillow <br> python3 -m pip install terragen-rpc<br></ul>

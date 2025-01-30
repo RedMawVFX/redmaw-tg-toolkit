@@ -32,11 +32,17 @@ def execute_script(script_path):
     script_directory = os.path.dirname(script_path)  # Get the directory of the script
     os.chdir(script_directory)  # Change the current working directory to the script's directory
 
+    script_name = os.path.basename(__file__) # Get the current script's filename
+    file_name, file_extension = os.path.splitext(script_name) # Split the filename and extension
+
     try:
         # Determine the platform to choose the correct executable
         if platform.system() == 'Windows':
             # Use pythonw.exe on Windows to prevent terminal window from opening
             command = ['py', script_path]
+            if file_extension == '.pyw':
+                # Use pythonw.exe on Windows to prevent terminal window from opening
+                command = ['pyw', script_path]
         else:
             # On macOS and Linux, just use python3
             command = ['python3', script_path]
