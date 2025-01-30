@@ -15,9 +15,12 @@ import platform
 import traceback
 import tkinter as tk
 import terragen_rpc as tg
+if platform.system() == "Darwin":
+    # we'll use these to create coloured buttons on the Mac
+    from PIL import Image, ImageTk
 
 gui = tk.Tk()
-gui.geometry("530x696" if platform.system() == "Darwin" else
+gui.geometry("459x692" if platform.system() == "Darwin" else
              "345x690")
 gui.title(os.path.basename(__file__))
 
@@ -527,8 +530,18 @@ reset_rot_b = tk.Button(frame1,
 reset_rot_b.grid(row=1, column=0, columnspan=2, padx=4, pady=4, sticky="w")
 
 # frame 2 - colour Buttons
+button_images = {}
 for index, key in enumerate(colour_dict):
-    but = tk.Button(frame2, bg=key, width=5, command=lambda key=key: on_colour_button_click(key))
+    if platform.system() == "Darwin":
+        # Create a solid colour image
+        colour = key
+        width, height = 60, 18
+        button_images[key] = ImageTk.PhotoImage(Image.new("RGB", (width, height), colour))
+        # Create a button with the solid colour image
+        but = tk.Button(frame2, image=button_images[key], width=width, height=height, command=lambda key=key: on_colour_button_click(key))
+    else:
+        # Create a button with a coloured background
+        but = tk.Button(frame2, bg=key, width=5, command=lambda key=key: on_colour_button_click(key))
     row = index // 6 + 1
     col = index % 6
     but.grid(row=row, column=col, padx=2, pady=2)
