@@ -30,6 +30,15 @@ frame1.grid(row=1, column=0, padx=6, pady=6, sticky="WENS")
 frame2.grid(row=2, column=0, padx=6, pady=6, sticky="WENS")
 frame3.grid(row=3, column=0, padx=6, pady=6, sticky="WENS")
 
+gui.rowconfigure(0, weight=1)
+gui.rowconfigure(1, weight=2)
+gui.rowconfigure(2, weight=1)
+gui.rowconfigure(3, weight=1)
+gui.columnconfigure(0, weight=1)
+
+frame1.grid_rowconfigure(0, weight=1)
+frame1.grid_columnconfigure(0, weight=1)
+
 COLOUR_SEARCH_WITH_VALUE = "#E8D7F2" # light purple
 COLOUR_SEARCH_WITHOUT_VALUE = ""
 
