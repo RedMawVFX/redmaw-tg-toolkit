@@ -1,3 +1,6 @@
+'''
+tg_compare_file.pyw - compares two Terragen project or clip files.
+'''
 import os.path
 import platform
 import re
@@ -11,26 +14,42 @@ gui = tk.Tk()
 gui.geometry("1021x960" if platform.system() == "Darwin" else
              "710x960")
 gui.title(os.path.basename(__file__))
+gui.minsize(932,704)
 
+# create frames
 file_selection_frame = tk.LabelFrame(gui, text = "Select files to compare")
 node_selection_frame = tk.LabelFrame(gui, text = "Select nodes to compare")
 results_frame = tk.Frame(gui)
 search_pattern_frame = tk.Frame(node_selection_frame)
+
+# grid frames
 file_selection_frame.grid(row=0, column=0, padx=4, pady=4, sticky="WENS")
 node_selection_frame.grid(row=1, column=0, padx=4, pady=4, sticky="WENS")
-results_frame.grid(row=2, column=0, padx=10, pady=4)
+results_frame.grid(row=2, column=0, padx=10, pady=4, sticky="WENS")
 search_pattern_frame.grid(row=0, column=0, columnspan=4, padx=4, pady=10, sticky="WENS")
+# search_pattern_frame.grid_propagate(False)
 
+# configure window - 3 rows 1 column
+gui.grid_rowconfigure(0, weight=0)
+gui.grid_rowconfigure(1, weight=1)
+gui.grid_rowconfigure(2, weight=0) # HERE
+gui.grid_columnconfigure(0, weight=1)
+
+# node selection notebook and tabs
 node_selection_notebook = ttk.Notebook(node_selection_frame)
-node_selection_notebook.grid(row=1, column=0, padx=4, pady=4, columnspan=4)
+node_selection_notebook.grid(row=1, column=0, padx=4, pady=4, columnspan=4, sticky="WENS")
 
 nodes_of_interest_tab = tk.Frame(node_selection_notebook)
 compare_by_path_tab = tk.Frame(node_selection_notebook)
 node_selection_notebook.add(nodes_of_interest_tab, text=" Nodes w/differences ")
 node_selection_notebook.add(compare_by_path_tab, text=" Compare two nodes ")
 
+node_display_options = tk.Frame(nodes_of_interest_tab) # for radio buttons on tab
+node_display_options.grid(row=0, column=0, sticky="w")
+
+# results notebook and tabs
 results_notebook = ttk.Notebook(results_frame)
-results_notebook.grid(row=0, column=0)
+results_notebook.grid(row=0, column=0, sticky="WENS")
 
 node_params_tab = tk.Frame(results_notebook)
 text_content_tab = tk.Frame(results_notebook)
@@ -38,6 +57,26 @@ project_comments_tab = tk.Frame(results_notebook)
 results_notebook.add(node_params_tab, text="Node params")
 results_notebook.add(text_content_tab, text="Text content")
 results_notebook.add(project_comments_tab, text="Project comments")
+
+# configure row and columns to expand in parent frames
+node_selection_frame.grid_rowconfigure(0, weight=0)
+node_selection_frame.grid_rowconfigure(1, weight=1)
+node_selection_frame.grid_columnconfigure(0, weight=1)
+node_selection_frame.grid_columnconfigure(1, weight=1)
+node_selection_frame.grid_columnconfigure(2, weight=1)
+node_selection_frame.grid_columnconfigure(3, weight=1)
+
+results_frame.grid_rowconfigure(0, weight=1)
+results_frame.grid_columnconfigure(0, weight=1)
+
+# Configure notebook to resize in the parent frame
+node_selection_notebook.grid_rowconfigure(0, weight=1)  # Allow tab content to expand
+node_selection_notebook.grid_columnconfigure(0, weight=1)
+
+results_notebook.grid_rowconfigure(0, weight=1)  # Allow tab content to expand
+results_notebook.grid_rowconfigure(1, weight=1)
+results_notebook.grid_columnconfigure(0, weight=1)
+
 
 COLOUR_SEARCH_WITH_VALUE = "#E8D7F2" # light purple
 COLOUR_SEARCH_WITHOUT_VALUE = ""
@@ -705,10 +744,10 @@ def update_result_headers() -> None:
         None: This function does not return any value.
     '''
     results["columns"] = ("Column 1", "Column 2", "Column 3")
-    results.column("#0", width=0, stretch=False) # hide first empty column
-    results.column("Column 1", anchor="w", width=210, stretch=False)
-    results.column("Column 2", anchor="w", width=210, stretch=False)
-    results.column("Column 3", anchor="w", width=210, stretch=False)
+    results.column("#0", width=0, stretch="no") # hide first empty column
+    results.column("Column 1", anchor="w", width=210) # , stretch=False
+    results.column("Column 2", anchor="w", width=210) # , stretch=False
+    results.column("Column 3", anchor="w", width=210) # , stretch=False
     results.heading("#0", text="", anchor="w")
     results.heading("Column 1", text="Parameters:", anchor="w")
     results.heading("Column 2", text=os.path.basename(file1_label.get()), anchor="w")
@@ -814,18 +853,19 @@ select_file2.grid(row=1, column=0, padx=4, pady=4, sticky="w" )
 tk.Label(file_selection_frame, textvariable=file2_label).grid(row=1, column=1, padx=10, pady=4, sticky='w')
 
 # widgets - node selection frame
-tk.Label(node_selection_frame, text="Search pattern: ").grid(row=0, column=0, padx=4, sticky='w')
-search_pattern = tk.Entry(node_selection_frame, textvariable=search_var, bg=COLOUR_SEARCH_WITH_VALUE)
+# tk.Label(node_selection_frame, text="Search pattern: ").grid(row=0, column=0, padx=4, sticky='w')
+tk.Label(search_pattern_frame, text="Search pattern: ").grid(row=0, column=0, padx=4, sticky='w')
+search_pattern = tk.Entry(search_pattern_frame, textvariable=search_var, bg=COLOUR_SEARCH_WITH_VALUE)
 search_pattern.grid(row=0, column=1, padx=4, pady=2, sticky='w')
 search_pattern.bind("<KeyRelease>", on_search)
-search_clear = tk.Button(node_selection_frame, text="Clear", command=on_clear)
+search_clear = tk.Button(search_pattern_frame, text="Clear", command=on_clear)
 search_clear.grid(row=0, column=2, padx=4, sticky='w')
 
-filter_all = tk.Radiobutton(nodes_of_interest_tab, text="All differences", variable=filter_by_var, value=0, command=filter_nodes_of_interest)
-filter_attribute = tk.Radiobutton(nodes_of_interest_tab, text="Attributes", variable=filter_by_var, value=1, command=filter_nodes_of_interest)
-filter_file1 = tk.Radiobutton(nodes_of_interest_tab, text="Only in file 1", variable=filter_by_var, value=2, command=filter_nodes_of_interest)
-filter_file2 = tk.Radiobutton(nodes_of_interest_tab, text="Only in file 2", variable=filter_by_var, value=3, command=filter_nodes_of_interest)
-filter_all.grid(row=0,column=0, padx=4, pady=4, sticky="w")
+filter_all = tk.Radiobutton(node_display_options, text="All differences", variable=filter_by_var, value=0, command=filter_nodes_of_interest)
+filter_attribute = tk.Radiobutton(node_display_options, text="Attributes", variable=filter_by_var, value=1, command=filter_nodes_of_interest)
+filter_file1 = tk.Radiobutton(node_display_options, text="Only in file 1", variable=filter_by_var, value=2, command=filter_nodes_of_interest)
+filter_file2 = tk.Radiobutton(node_display_options, text="Only in file 2", variable=filter_by_var, value=3, command=filter_nodes_of_interest)
+filter_all.grid(row=0, column=0, padx=4, pady=4, sticky="w")
 filter_attribute.grid(row=0, column=1, padx=4, pady=4, sticky="w")
 filter_file1.grid(row=0, column=2, padx=4, pady=4, sticky="w")
 filter_file2.grid(row=0, column=3, padx=4, pady=4, sticky="w")
@@ -842,10 +882,16 @@ nodes_of_interest.bind("<<TreeviewSelect>>", update_results_from_node_of_interes
 nodes_of_interest.tag_configure('with_value', background=COLOUR_SEARCH_WITH_VALUE)
 nodes_of_interest.tag_configure('without_value', background=COLOUR_SEARCH_WITHOUT_VALUE)
 
+# configure tab rows and columns to expand as window resizes
+# nodes_of_interest_tab.grid_rowconfigure(0, weight=1)
+nodes_of_interest_tab.grid_rowconfigure(1, weight=1)
+# nodes_of_interest_tab.grid_rowconfigure(2, weight=1)
+nodes_of_interest_tab.grid_columnconfigure(0, weight=1)
+
 update_nodes_of_interest_headers()
 
 # widgets - compare by path tab
-file1_paths = tk.Listbox(compare_by_path_tab, height=10, width=100, selectmode=tk.SINGLE, exportselection=0)
+file1_paths = tk.Listbox(compare_by_path_tab, height=10, selectmode=tk.SINGLE, exportselection=0) # width=100, 
 file1_paths_vscroll = tk.Scrollbar(compare_by_path_tab, orient=tk.VERTICAL, command=file1_paths.yview, bg="blue")
 file1_paths_hscroll = tk.Scrollbar(compare_by_path_tab, orient=tk.HORIZONTAL, command=file1_paths.xview)
 file1_paths.config(yscrollcommand=file1_paths_vscroll.set, xscrollcommand=file1_paths_hscroll.set)
@@ -854,7 +900,7 @@ file1_paths_vscroll.grid(row=0, column=1, padx=5, sticky="ns")
 file1_paths_hscroll.grid(row=1, column=0, sticky='ew')
 file1_paths.bind("<ButtonRelease-1>", lambda event: on_node_path_select(event, 1))
 
-file2_paths = tk.Listbox(compare_by_path_tab, height=10, width=100, selectmode=tk.SINGLE, exportselection=0)
+file2_paths = tk.Listbox(compare_by_path_tab, height=10, selectmode=tk.SINGLE, exportselection=0) #width=100,
 file2_paths_vscroll = tk.Scrollbar(compare_by_path_tab, orient=tk.VERTICAL, command=file2_paths.yview, bg="blue")
 file2_paths_hscroll = tk.Scrollbar(compare_by_path_tab, orient=tk.HORIZONTAL, command=file2_paths.xview)
 file2_paths.config(yscrollcommand=file2_paths_vscroll.set, xscrollcommand=file2_paths_hscroll.set)
@@ -862,6 +908,10 @@ file2_paths.grid(row=2, column=0, padx=10, pady=4, sticky="nsew")
 file2_paths_vscroll.grid(row=2, column=1, padx=5, sticky="ns")
 file2_paths_hscroll.grid(row=3, column=0, sticky='ew')
 file2_paths.bind("<ButtonRelease-1>", lambda event: on_node_path_select(event, 2))
+
+compare_by_path_tab.grid_rowconfigure(0, weight=1)
+compare_by_path_tab.grid_rowconfigure(2, weight=1)
+compare_by_path_tab.grid_columnconfigure(0, weight=1)
 
 # widgets - results frame - parameter values
 show_differences_only = tk.Checkbutton(node_params_tab, text="Differences only", variable=show_differences_only_var, command=update_results_for_current_mode)
@@ -878,6 +928,10 @@ results_vscroll.grid(row=1, column=1, sticky='ns')
 results_hscroll.grid(row=2, column=0, sticky='ew')
 results.tag_configure("equal_value", background=TAG_COLOUR_EQUAL)
 results.tag_configure("unequal_value", background=TAG_COLOUR_UNEQUAL)
+
+node_params_tab.grid_rowconfigure(1, weight=1) # treeview
+node_params_tab.grid_rowconfigure(2, weight=1) # h scroll
+node_params_tab.grid_columnconfigure(0, weight=1)
 
 update_result_headers() # so that treeview fills frame2 properly at run time
 
@@ -898,8 +952,12 @@ file2_content.configure(yscrollcommand=file2_content_vscroll.set, xscrollcommand
 file2_content_vscroll.grid(row=2, column=1, sticky='ns')
 file2_content_hscroll.grid(row=3, column=0, sticky='ew')
 
+text_content_tab.grid_rowconfigure(0, weight=1)
+text_content_tab.grid_rowconfigure(2, weight=1)
+text_content_tab.grid_columnconfigure(0, weight=1)
+
 # widgets - results frame - project comments
-file1_comments = tk.Text(project_comments_tab, wrap='word', width=80, height=8)
+file1_comments = tk.Text(project_comments_tab, wrap='word', height=8) #width=80,
 file1_comments.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 file1_comments_vscroll = tk.Scrollbar(project_comments_tab, orient=tk.VERTICAL, command=file1_comments.yview)
 file1_comments_hscroll = tk.Scrollbar(project_comments_tab, orient=tk.HORIZONTAL, command=file1_comments.xview)
@@ -907,12 +965,20 @@ file1_comments.configure(yscrollcommand=file1_comments_vscroll.set, xscrollcomma
 file1_comments_vscroll.grid(row=0, column=1, sticky='ns')
 file1_comments_hscroll.grid(row=1, column=0, sticky='ew')
 
-file2_comments = tk.Text(project_comments_tab ,wrap='word', width=80, height=8)
+file2_comments = tk.Text(project_comments_tab ,wrap='word', height=8) #width=80,
 file2_comments.grid(row=2, column=0, padx=10, pady=10, sticky="nsew")
 file2_comments_vscroll = tk.Scrollbar(project_comments_tab, orient=tk.VERTICAL, command=file2_comments.yview)
 file2_comments_hscroll = tk.Scrollbar(project_comments_tab, orient=tk.HORIZONTAL, command=file2_comments.xview)
 file2_comments.configure(yscrollcommand=file2_comments_vscroll.set, xscrollcommand=file2_comments_hscroll.set)
 file2_comments_vscroll.grid(row=2, column=1, sticky='ns')
 file2_comments_hscroll.grid(row=3, column=0, sticky='ew')
+
+project_comments_tab.grid_rowconfigure(0, weight=1) # allows resizing of project comments tab
+project_comments_tab.grid_rowconfigure(2, weight=1)
+project_comments_tab.grid_columnconfigure(0, weight=1)
+
+results_frame.grid_rowconfigure(0, weight=1)
+results_frame.grid_rowconfigure(1, weight=1)
+results_frame.grid_columnconfigure(0, weight=1)
 
 gui.mainloop()
