@@ -13,7 +13,8 @@ https://planetside.co.uk/
 Install a version of Terragen 4 that includes the remote procedure call (RPC) feature on your computer.
 
 ### Usage
-When run, the UI presents a single Entry widget called “<b>Go to frame</b>” which accepts integer values. The default value is the current frame, and this value can be retrieved at any time by pressing the <b>Escape key</b>.   The current frame and timeline will automatically update as characters are entered.  The <b>Up Arrow</b> and <b>Down Arrow</b> will advance the current frame forward or backwards respectively by one frame.  Scrolling the <b>middle mouse button</b> will advance the “Go to frame” value, but you must click another key, such as the <b>Enter</b> key, to set the current frame and update the timeline.
+When run, the UI presents an Entry widget called “<b>Go to frame</b>” which accepts integer values. The default value is the current frame, and this value can be retrieved at any time by pressing the <b>Escape key</b>.   The current frame and timeline will automatically update as characters are entered.  The <b>Up Arrow</b> and <b>Down Arrow</b> will advance the current frame forward or backwards respectively by one frame.  Scrolling the <b>middle mouse button</b> will advance the “Go to frame” value, but you must click another key, such as the <b>Enter</b> key, to set the current frame and update the timeline.<br>
+The "<b>Defer evaluation (Press Enter)</b>" check box causes the frame to advance in the project only when the <b>Enter</b> key is pressed.  This is useful when image sequences are used for displacement, etc. and would cause a message to appear in the Errors and Warnings window each time the frame advanced if an image was missing.
 
 ### Reference
 terragen-rpc <br>

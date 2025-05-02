@@ -21,7 +21,7 @@ import terragen_rpc as tg
 
 gui = tk.Tk()
 gui.title(os.path.basename(__file__))
-gui.geometry("280x50")
+gui.geometry("280x75")
 
 def popup_warning(title, message) -> None:
     '''
@@ -67,27 +67,63 @@ def on_go_to(_) -> None:
         None
     '''
     global ERROR_SHOWN
-    current_frame = current_frame_var.get()
-    if is_valid_integer(current_frame):
-        ERROR_SHOWN = False
-        try:
-            project = tg.root()
-            project.set_param("current_frame", int(current_frame_var.get()))
-        except ConnectionError as e:
-            popup_warning(os.path.basename(__file__), "Terragen RPC connection error" + str(e))
-            return None
-        except TimeoutError as e:
-            popup_warning(os.path.basename(__file__), "Terragen RPC timeout error" + str(e))
-            return None
-        except tg.ReplyError as e:
-            popup_warning(os.path.basename(__file__), "Terragen RPC reply error" + str(e))
-            return None
-        except tg.ApiError:
-            popup_warning(
-                os.path.basename(__file__),
-                "Terragen RPC API error" + str(traceback.format_exc())
-                )
-            return None
+    if not defer_eval.get():
+        current_frame = current_frame_var.get()
+        if is_valid_integer(current_frame):
+            ERROR_SHOWN = False
+            try:
+                project = tg.root()
+                project.set_param("current_frame", int(current_frame_var.get()))
+            except ConnectionError as e:
+                popup_warning(os.path.basename(__file__), "Terragen RPC connection error" + str(e))
+                return None
+            except TimeoutError as e:
+                popup_warning(os.path.basename(__file__), "Terragen RPC timeout error" + str(e))
+                return None
+            except tg.ReplyError as e:
+                popup_warning(os.path.basename(__file__), "Terragen RPC reply error" + str(e))
+                return None
+            except tg.ApiError:
+                popup_warning(
+                    os.path.basename(__file__),
+                    "Terragen RPC API error" + str(traceback.format_exc())
+                    )
+                return None
+
+def on_enter(event) -> None:
+    '''
+    Advances the current frame according to the value in the Entry widget only
+    when the defer checkbutton is enabled and Enter is pressed.
+
+    Args:
+        (event): enter key pressed
+
+    Returns:
+        None
+    '''
+    global ERROR_SHOWN
+    if defer_eval.get():
+        current_frame = current_frame_var.get()
+        if is_valid_integer(current_frame):
+            ERROR_SHOWN = False
+            try:
+                project = tg.root()
+                project.set_param("current_frame", int(current_frame_var.get()))
+            except ConnectionError as e:
+                popup_warning(os.path.basename(__file__), "Terragen RPC connection error" + str(e))
+                return None
+            except TimeoutError as e:
+                popup_warning(os.path.basename(__file__), "Terragen RPC timeout error" + str(e))
+                return None
+            except tg.ReplyError as e:
+                popup_warning(os.path.basename(__file__), "Terragen RPC reply error" + str(e))
+                return None
+            except tg.ApiError:
+                popup_warning(
+                    os.path.basename(__file__),
+                    "Terragen RPC API error" + str(traceback.format_exc())
+                    )
+                return None 
 
 def decrease_value(_) -> None:
     '''
@@ -196,6 +232,8 @@ current_frame_var.set("1")
 start_frame_var = tk.StringVar()
 end_frame_var = tk.StringVar()
 ERROR_SHOWN = False
+defer_eval = tk.BooleanVar()
+defer_eval.set(True)
 
 # main
 on_startup()
@@ -209,7 +247,11 @@ frame.bind("<MouseWheel>", on_mouse_wheel)
 frame.bind("<Up>", increase_value)
 frame.bind("<Down>", decrease_value)
 frame.bind("<KeyRelease>", on_go_to)
+frame.bind("<Return>", on_enter)
 frame.bind("<Escape>", on_escape)
+
+defer = tk.Checkbutton(gui, text="Defer evaluation (Press Enter)", variable=defer_eval)
+defer.grid(row=1, column=0, columnspan=2, padx=4, pady=4, sticky="w")
 
 set_focus_and_select()
 
