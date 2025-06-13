@@ -1,7 +1,7 @@
 [[category]]
 name = "Objects"
 scripts = [
-    {path = "scripts/tg-landmark/tg_landmark.pyw", label = "Add landmark", shortcut = "<l>"}
+    {path = "scripts/tg-landmark/tg_landmark.pyw", label = "Add landmark", shortcut = "Shift-l"}
     {path = "scripts/tg-reference-box/tg_reference_box.pyw", label = "Add reference box", shortcut = "<r>"}
 ]
 
@@ -42,7 +42,9 @@ scripts = [
 
 [[category]]
 name = "Renderers"
-scripts = []
+scripts = [
+    { path = "scripts/tg-crop-region-utils/tg_toggle_all_crop_regions.pyw", label = "Toggle crop regions", shortcut = "<l>"}
+]
 
 [[category]]
 name = "Utility"
