@@ -38,6 +38,7 @@ name = "Cameras"
 scripts = [
     { path = "scripts/tg-camera-bookmarks/tg_camera_bookmarks.pyw", label = "Bookmarks", shortcut = "<b>" },
     { path = "scripts/tg-crop-region-presets/tg_crop_regions_presets.pyw", label = "Crop region", shortcut = "Control-c" }
+    { path = "scripts/tg-cubemap-cameras/tg_cubemap_cameras.pyw", label = "Cubemap Cameras", shortcut = "<6>" }
 ]
 
 [[category]]
