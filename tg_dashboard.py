@@ -51,8 +51,13 @@ def execute_script(script_path):
         try:
             subprocess.run(command, check=True, text=True, capture_output=True)
         except subprocess.CalledProcessError as e:
+            # Show error details if the script fails to run in terminal
+            print("STDOUT:\n", e.stdout)
+            print("STDERR:\n", e.stderr)
+            print("Exit code:", e.returncode)
             # Show an error message if the script fails to run
             messagebox.showerror("Error", f"Error running script: {e}")
+
     finally:
         # Restore the original working directory after the script execution
         os.chdir(original_directory)
