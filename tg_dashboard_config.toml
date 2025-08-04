@@ -52,6 +52,7 @@ name = "Utility"
 scripts = [
     { path = "scripts/tg-compare-files/tg_compare_files.pyw", label = "Compare Terragen files", shortcut = "<f>"}
     { path = "scripts/tg-copy-coords-to-selected/tg_copy_coords_to_selected.pyw", label = "Copy coords to selected", shortcut = "<c>"}
+    { path = "scripts/tg-cubemap-cameras/tg_cubemap_stitcher.pyw", label = "Cubemap Stitcher", shortcut = "Shift-s" }
     { path = "scripts/tg-node-display-options/tg_node_display_options.pyw", label = "Display options", shortcut = "<o>"}
     { path = "scripts/tg-find-nodes-in-project/tg_find_nodes_in_project.pyw", label = "Find nodes", shortcut = "Control-f"}
     { path = "scripts/tg-go-to-frame/tg_goto_frame.pyw", label = "Go to frame", shortcut = "<g>" }
