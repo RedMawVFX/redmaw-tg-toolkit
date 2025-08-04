@@ -25,7 +25,7 @@ class CubemapStitcherTk(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title(os.path.basename(__file__))
-        self.geometry("900x650")
+        self.geometry("900x400")
         self.folder_path = ""
         self.images = []
         self.face_assignments = {face: None for face, _ in CUBEMAP_FACES}
