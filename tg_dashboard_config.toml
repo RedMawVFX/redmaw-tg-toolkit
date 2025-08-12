@@ -1,8 +1,8 @@
 [[category]]
 name = "Objects"
 scripts = [
-    {path = "scripts/tg-landmark/tg_landmark.pyw", label = "Add landmark", shortcut = "Shift-l"}
-    {path = "scripts/tg-reference-box/tg_reference_box.pyw", label = "Add reference box", shortcut = "<r>"}
+    {path = "scripts/tg-landmark/tg_landmark.pyw", label = "Add landmark", shortcut = "Shift-l", tooltip = "Adds a landmark object to the project\nat the origin or coordinates in the\nclipboard."}
+    {path = "scripts/tg-reference-box/tg_reference_box.pyw", label = "Add reference box", shortcut = "<r>", tooltip = "Adds a reference box to the project\nat the origin or coordinates in the\nclipboard. User sets size & rotation."}
 ]
 
 [[category]]
@@ -12,7 +12,7 @@ scripts = []
 [[category]]
 name = "Shaders"
 scripts = [
-    {path = "scripts/tg-splatter-craters/tg_splatter_craters.pyw", label = "Splatter craters", shortcut = "Shift-c"}
+    {path = "scripts/tg-splatter-craters/tg_splatter_craters.pyw", label = "Splatter craters", shortcut = "Shift-c", tooltip = "Randomly adds craters to the terrain."}
 ]
 
 [[category]]
@@ -22,42 +22,42 @@ scripts = []
 [[category]]
 name = "Atmosphere"
 scripts = [
-    {path = "scripts/tg-add-random-cloud/tg_add_random_cloud.pyw", label = "Add random cloud", shortcut = "Control-r"}
+    {path = "scripts/tg-add-random-cloud/tg_add_random_cloud.pyw", label = "Add random cloud", shortcut = "Control-r", tooltip = "Adds a random type of cloud layer\nto the project with random settings."}
 ]
 
 [[category]]
 name = "Lighting"
 scripts = [
-    {path = "scripts/tg-kelvin-temperature/tg_kelvin_temperature.pyw", label = "Kelvin temperature", shortcut = "<k>"}
-    {path = "scripts/tg-sunlight01-heading-elevation/tg_sunlight01_heading_elevation.pyw", label = "Sunlight01 head elevation", shortcut = "<h>"}
-    {path = "scripts/tg-time-of-day/tg_time_of_day.pyw", label = "Time of day", shortcut = "<t>"}
-    ]
+    {path = "scripts/tg-kelvin-temperature/tg_kelvin_temperature.pyw", label = "Kelvin temperature", shortcut = "<k>", tooltip = "Modifies the colour of a Sunlight node\nbased on Kelvin temperature values."}
+    {path = "scripts/tg-sunlight01-heading-elevation/tg_sunlight01_heading_elevation.pyw", label = "Sunlight01 head elevation", shortcut = "<h>", tooltip = "Quickly change the heading or elevation\nvalues of Sunlight01."}
+    {path = "scripts/tg-time-of-day/tg_time_of_day.pyw", label = "Time of day", shortcut = "<t>", tooltip = "Modify the heading or elevation values of a Sunlight\nnode based on time of day and coordinates."}
+]
 
 [[category]]
 name = "Cameras"
 scripts = [
-    { path = "scripts/tg-camera-bookmarks/tg_camera_bookmarks.pyw", label = "Bookmarks", shortcut = "<b>" },
-    { path = "scripts/tg-crop-region-presets/tg_crop_regions_presets.pyw", label = "Crop region", shortcut = "Control-c" }
-    { path = "scripts/tg-cubemap-cameras/tg_cubemap_cameras.pyw", label = "Cubemap Cameras", shortcut = "<6>" }
+    { path = "scripts/tg-camera-bookmarks/tg_camera_bookmarks.pyw", label = "Bookmarks", shortcut = "<b>", tooltip = "Bookmark the position, rotation and focal\nlength of any camera in the project.\nApply to any other camera.\nSave to and Load from disk."}
+    { path = "scripts/tg-crop-region-presets/tg_crop_regions_presets.pyw", label = "Crop region", shortcut = "Control-c", tooltip = "Common crop region presets. Customize your\nown and save to or load from disk."}
+    { path = "scripts/tg-cubemap-cameras/tg_cubemap_cameras.pyw", label = "Cubemap Cameras", shortcut = "<6>", tooltip = "Adds six cameras to the project and a render node\nfor creating cubemap images."}
 ]
 
 [[category]]
 name = "Renderers"
 scripts = [
-    { path = "scripts/tg-crop-region-utils/tg_toggle_all_crop_regions.pyw", label = "Toggle crop regions", shortcut = "<l>"}
+    { path = "scripts/tg-crop-region-utils/tg_toggle_all_crop_regions.pyw", label = "Toggle crop regions", shortcut = "<l>", tooltip = "Quickly toggle the crop region on and off."}
 ]
 
 [[category]]
 name = "Utility"
 scripts = [
-    { path = "scripts/tg-compare-files/tg_compare_files.pyw", label = "Compare Terragen files", shortcut = "<f>"}
-    { path = "scripts/tg-copy-coords-to-selected/tg_copy_coords_to_selected.pyw", label = "Copy coords to selected", shortcut = "<c>"}
-    { path = "scripts/tg-cubemap-cameras/tg_cubemap_stitcher.pyw", label = "Cubemap Stitcher", shortcut = "Shift-s" }
-    { path = "scripts/tg-node-display-options/tg_node_display_options.pyw", label = "Display options", shortcut = "<o>"}
-    { path = "scripts/tg-find-nodes-in-project/tg_find_nodes_in_project.pyw", label = "Find nodes", shortcut = "Control-f"}
-    { path = "scripts/tg-go-to-frame/tg_goto_frame.pyw", label = "Go to frame", shortcut = "<g>" }
-    { path = "scripts/tg-rename-1-1-1-nodes/tg_rename_1_1_1_nodes.pyw", label = "Rename _1_1_1 nodes", shortcut = "Shift-r"}
-    { path = "scripts/tg-replace-image-map-paths/tg_replace_image_map_paths.pyw", label = "Replace image maps", shortcut = "Shift-i"}
-    { path = "scripts/tg-set-coords-to-origin/tg_set_coords_to_origin.pyw", label = "Set coords to origin", shortcut = "Shift-o"}
-    { path = "scripts/tg-transform-to-origin/tg_transform_to_origin.pyw", label = "Transform to origin", shortcut = "Shift-t"}
+    { path = "scripts/tg-compare-files/tg_compare_files.pyw", label = "Compare Terragen files", shortcut = "<f>", tooltip = "Compares the content of two Terragen files."}
+    { path = "scripts/tg-copy-coords-to-selected/tg_copy_coords_to_selected.pyw", label = "Copy coords to selected", shortcut = "<c>", tooltip = "Copies valid xyz coordinates from the clipboard\nto all the selected nodes in the project."}
+    { path = "scripts/tg-cubemap-cameras/tg_cubemap_stitcher.pyw", label = "Cubemap Stitcher", shortcut = "Shift-s", tooltip = "Stitches together individual cubemap images into one image." }
+    { path = "scripts/tg-node-display-options/tg_node_display_options.pyw", label = "Display options", shortcut = "<o>", tooltip = "Hide or unhide items in the project\nbased on the type of item."}
+    { path = "scripts/tg-find-nodes-in-project/tg_find_nodes_in_project.pyw", label = "Find nodes", shortcut = "Control-f", tooltip = "Finds, selects and deselects nodes in the\nproject based on a search pattern."}
+    { path = "scripts/tg-go-to-frame/tg_goto_frame.pyw", label = "Go to frame", shortcut = "<g>", tooltip = "Quickly advance to a frame in the project." }
+    { path = "scripts/tg-rename-1-1-1-nodes/tg_rename_1_1_1_nodes.pyw", label = "Rename _1_1_1 nodes", shortcut = "Shift-r", tooltip = "Automatically rename nodes with suffixes like _1_1_1 etc."}
+    { path = "scripts/tg-replace-image-map-paths/tg_replace_image_map_paths.pyw", label = "Replace image maps", shortcut = "Shift-i", tooltip = "Replaces the existing image filename with a\nnew filename for all Image Map shaders\nin the project."}
+    { path = "scripts/tg-set-coords-to-origin/tg_set_coords_to_origin.pyw", label = "Set coords to origin", shortcut = "Shift-o", tooltip = "Sets the coordinates to 0,0,0 for\nall selected nodes."}
+    { path = "scripts/tg-transform-to-origin/tg_transform_to_origin.pyw", label = "Transform to origin", shortcut = "Shift-t", tooltip = "Adds a Transform node to the project to center\nthe coordinates in the clipboard at 0,0,0."}
 ]
