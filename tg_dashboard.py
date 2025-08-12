@@ -20,6 +20,34 @@ except (ImportError, ModuleNotFoundError):
         )
     sys.exit(1)
 
+class ToolTip:
+    def __init__(self, widget, text):
+        self.widget = widget
+        self.text = text
+        self.tipwindow = None
+        widget.bind("<Enter>", self.show_tip)
+        widget.bind("<Leave>", self.hide_tip)
+
+    def show_tip(self, event=None):
+        if self.tipwindow or not self.text:
+            return
+        x, y, _, cy = self.widget.bbox("insert")  # bounding box of the widget
+        x = x + self.widget.winfo_rootx() + 20
+        y = y + cy + self.widget.winfo_rooty() + 20
+        self.tipwindow = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)  # Remove window decorations
+        tw.wm_geometry(f"+{x}+{y}")
+        label = tk.Label(tw, text=self.text, justify=tk.LEFT,
+                         background="#ffffe0", relief=tk.SOLID, borderwidth=1,
+                         font=("tahoma", "8", "normal"))
+        label.pack(ipadx=4, ipady=2)
+
+    def hide_tip(self, event=None):
+        tw = self.tipwindow
+        self.tipwindow = None
+        if tw:
+            tw.destroy()
+
 def execute_script(script_path):
     """Execute the script given by the full path, from its local directory."""
     original_directory = os.getcwd()  # Save the current working directory
@@ -97,7 +125,7 @@ def create_buttons_for_category(tab, category_name, scripts_with_shortcuts, shor
     row, col = 0, 0  # To place 2 buttons per row
 
     for script in scripts_with_shortcuts:
-        script_path, label, shortcut = script
+        script_path, label, shortcut, tooltip = script
 
         # Resolve relative path to absolute path and normalize path
         full_script_path = os.path.join(base_dir, script_path) if not os.path.isabs(script_path) else script_path
@@ -109,6 +137,9 @@ def create_buttons_for_category(tab, category_name, scripts_with_shortcuts, shor
         # Create a button for each script
         button = tk.Button(tab, text=button_label, width=30, command=lambda path=full_script_path: execute_script(path))
         button.grid(row=row, column=col, padx=5, pady=2, sticky="ew")
+        if tooltip:
+            # Add tooltip to the button if provided
+            ToolTip(button, tooltip)
 
         # Add the shortcut to the dictionary to be checked during key press
         if shortcut:
@@ -143,7 +174,8 @@ def create_tabs_from_config(config_file):
             path = script['path']
             label = script.get('label', None)
             shortcut = script.get('shortcut', None)
-            scripts_with_shortcuts.append((path, label, shortcut))
+            tooltip = script.get('tooltip', None)
+            scripts_with_shortcuts.append((path, label, shortcut, tooltip))
 
         # Create a new tab for this category using tk.Frame instead of ttk.Frame
         tab = tk.Frame(notebook, padx=5, pady=5)
