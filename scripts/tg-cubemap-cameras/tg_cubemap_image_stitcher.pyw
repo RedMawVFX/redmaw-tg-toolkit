@@ -148,7 +148,7 @@ class CubeMapApp:
         self.selected_face = None
         self.grid_cells = []
         self.grid_assignments = {}
-        self.current_layout = '3x2'
+        self.current_layout = '3x4'
         self.cell_frame = None
         self.cell_size = 144
         self.cell_flip_states = {}  # {cell_index: {'h': bool, 'v': bool}}
@@ -219,10 +219,10 @@ class CubeMapApp:
     def setup_ui(self):
         # Main container frames
         input_frame = tk.Frame(self.root, borderwidth=2, relief="groove")
-        input_frame.pack(padx=10, pady=5, fill="x")
+        input_frame.pack(side="left", padx=10, pady=5, fill="y")
 
         output_frame = tk.Frame(self.root, borderwidth=2, relief="groove")
-        output_frame.pack(padx=10, pady=5, fill="x")
+        output_frame.pack(side="left", padx=10, pady=5, fill="both", expand=True)
 
         # -------------------
         # INPUT FRAME CONTENT
@@ -233,47 +233,55 @@ class CubeMapApp:
         browse_frame.pack(pady=5, fill="x")
 
         tk.Button(browse_frame, text="Browse for image file",
-                command=self.browse_image).pack(side=tk.LEFT, padx=10)
+                command=self.browse_image).pack(padx=10)
 
         self.selected_file_label = tk.Label(browse_frame, text="No file selected", fg='gray')
-        self.selected_file_label.pack(side=tk.LEFT, padx=10)
+        self.selected_file_label.pack(padx=10, pady=10)
 
         # Thumbnails
         self.face_frame = tk.Frame(input_frame)
         self.face_frame.pack(pady=10)
         self.render_face_thumbnails()  # Initial empty thumbnails
 
-        # Aliases buttons
-        aliases_frame = tk.Frame(input_frame)
-        aliases_frame.pack(pady=5, fill="x")
+        # Alias buttons row 1
+        aliases_buttons_frame1 = tk.Frame(input_frame)
+        aliases_buttons_frame1.pack(padx=5)
 
         clear_aliases = tk.Button(
-            aliases_frame,
+            aliases_buttons_frame1,
             text="Clear Aliases",
+            width=21,
             command=self.clear_aliases_patterns
         )
-        clear_aliases.pack(side=tk.LEFT, padx=10, pady=5)
+        clear_aliases.pack(side=tk.LEFT, padx=6, pady=5)
 
         reset_aliases = tk.Button(
-            aliases_frame,
+            aliases_buttons_frame1,
             text="Reset Aliases",
+            width=21,
             command=self.reset_aliases_patterns
         )
-        reset_aliases.pack(side=tk.LEFT, padx=10, pady=5)
+        reset_aliases.pack(side=tk.LEFT, padx=6, pady=5)
+
+        # Alias buttons row 2
+        aliases_buttons_frame2 = tk.Frame(input_frame)
+        aliases_buttons_frame2.pack(padx=5, pady=4)
 
         save_aliases = tk.Button(
-            aliases_frame,
+            aliases_buttons_frame2,
             text="Save Aliases",
+            width=21,
             command=self.save_aliases_to_config
         )
-        save_aliases.pack(side=tk.LEFT, padx=10, pady=5)
+        save_aliases.pack(side=tk.LEFT, padx=5, pady=5)
 
         load_aliases_from_config = tk.Button(
-            aliases_frame,
+            aliases_buttons_frame2,
             text="Load Aliases from Config",
+            width=21,
             command=self.init_aliases_patterns
         )
-        load_aliases_from_config.pack(side=tk.LEFT, padx=10, pady=5)
+        load_aliases_from_config.pack(side=tk.LEFT, padx=5, pady=5)
 
         # -------------------
         # OUTPUT FRAME CONTENT
@@ -311,7 +319,7 @@ class CubeMapApp:
         self.create_grid()
 
         # Clear, Preview and Save buttons
-        save_frame = tk.Frame(self.root)
+        save_frame = tk.Frame(output_frame)
         save_frame.pack(pady=10)
         tk.Button(save_frame, text="Clear Assignments", command=self.clear_grid_assignments).pack(side=tk.LEFT, padx=(0, 10))
         tk.Button(save_frame, text="Preview Stitched Image", command=self.preview_stitched_image).pack(side=tk.LEFT, padx=(0, 10))
@@ -452,7 +460,7 @@ class CubeMapApp:
                 )
             else:
                 frame = tk.Frame(self.face_frame, relief=tk.RIDGE, borderwidth=2, padx=5, pady=5)
-            frame.grid(row=i//3, column=i%3, padx=5, pady=5)
+            frame.grid(row=i//2, column=i%2, padx=5, pady=5)
             # Show matched pattern (if available) instead of alias label
             pattern_label = face.upper()
             if face in self.detected_faces and 'matched_pattern' in self.detected_faces[face]:
