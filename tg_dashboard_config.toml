@@ -52,7 +52,7 @@ name = "Utility"
 scripts = [
     { path = "scripts/tg-compare-files/tg_compare_files.pyw", label = "Compare Terragen files", shortcut = "<f>", tooltip = "Compares the content of two Terragen files."}
     { path = "scripts/tg-copy-coords-to-selected/tg_copy_coords_to_selected.pyw", label = "Copy coords to selected", shortcut = "<c>", tooltip = "Copies valid xyz coordinates from the clipboard\nto all the selected nodes in the project."}
-    { path = "scripts/tg-cubemap-cameras/tg_cubemap_stitcher.pyw", label = "Cubemap Stitcher", shortcut = "Shift-s", tooltip = "Stitches together individual cubemap images into one image." }
+    { path = "scripts/tg-cubemap-cameras/tg_cubemap_image_stitcher.pyw", label = "Cubemap Image Stitcher", shortcut = "Shift-s", tooltip = "Stitches together individual cubemap images into one image." }
     { path = "scripts/tg-node-display-options/tg_node_display_options.pyw", label = "Display options", shortcut = "<o>", tooltip = "Hide or unhide items in the project\nbased on the type of item."}
     { path = "scripts/tg-find-nodes-in-project/tg_find_nodes_in_project.pyw", label = "Find nodes", shortcut = "Control-f", tooltip = "Finds, selects and deselects nodes in the\nproject based on a search pattern."}
     { path = "scripts/tg-go-to-frame/tg_goto_frame.pyw", label = "Go to frame", shortcut = "<g>", tooltip = "Quickly advance to a frame in the project." }
