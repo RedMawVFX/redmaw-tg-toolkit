@@ -5,7 +5,7 @@ A collection of Python scripts to use with Terragen, including a handy configura
 
 ### Requirements
 The toolkit requires a version of Terragen 4 with the remote procedure call (RPC) feature. <br>
-It also requires the Python programing language and the modules listed below. <br>
+It also requires the Python programing language and the modules listed below. Some scripts require external libraries such as OpenEXR and Imath.<br>
 
 Terragen 4 Professional (v4.6.31 or later) <br>
 or Terragen 4 Creative (4.7.15 or later) <br>
@@ -21,6 +21,12 @@ https://pypi.org/project/toml/
 Pillow <br>
 https://pypi.org/project/Pillow/
 
+OpenEXR module<br>
+https://pypi.org/project/OpenEXR/ <br>
+
+Imath module <br>
+https://pypi.org/project/imath/ <br>
+
 terragen-rpc <br>
 https://github.com/planetside-software/terragen-rpc
 
@@ -35,8 +41,8 @@ Extract the folder structure and files from the ZIP archive.
 
 You can install the dependency modules at a command prompt or terminal as follows:
 <ul>
-Windows: <ul>py -m pip install toml <br> py -m pip install Pillow <br> py -m pip install terragen-rpc<br></ul><br>
-MacOS:<ul> python3 -m pip install toml<br> python3 -m pip install Pillow <br> python3 -m pip install terragen-rpc<br></ul>
+Windows: <ul>py -m pip install toml <br> py -m pip install Pillow <br> py -m pip install OpenEXR<br> py -m pip install imath<br>py -m pip install terragen-rpc<br></ul><br>
+MacOS:<ul> python3 -m pip install toml<br> python3 -m pip install Pillow <br> python3 -m pip install OpenEXR<br>python3 -m pip install imath<br> python3 -m pip install terragen-rpc<br></ul>
 </ul>
 
 ### Usage
