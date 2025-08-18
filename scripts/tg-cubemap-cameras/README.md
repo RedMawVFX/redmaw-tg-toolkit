@@ -93,4 +93,5 @@ When run, the UI presents controls to select the location of the saved cubemap i
 
 
 ### Reference
-Blog post URL here
+Support Diaries: Cubemaps <br>
+https://planetside.co.uk/blog/support-diaries-cubemaps/
