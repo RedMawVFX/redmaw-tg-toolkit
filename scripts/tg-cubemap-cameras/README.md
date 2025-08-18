@@ -71,7 +71,7 @@ When run, the UI presents controls to select the location of the saved cubemap i
 <li><b>Reset Aliases</b> resets all the text fields to the default search pattern text.</li>
 <li><b>Save Aliases</b> saves all the current search patterns to a config file.</li>
 <li><b>Load Aliases from config</b> loads the search patterns from the config file and replaces all the existing search patterns.</li>
-<li>The <b>Grid layout</b> buttons allow you to choose the column and row format for the cubemap texture image.</li>
+<li>The <b>Grid Layout</b> buttons allow you to choose the column and row format for the cubemap texture image.</li>
 <li>The <b>Presets</b> button allows you to select from common column and row formats and cubemap texture layouts, including known image rotations.</li>
 
 ![The presets dropdown menu.](images/tg_cubemap_image_stitcher_output_presets.jpg)
