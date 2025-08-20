@@ -207,10 +207,11 @@ def set_gui_node_pos(node, class_name, context=None):
         class_name "str": class of node, i.e. "camera"
         context <obj>: node id of parent object, i.e. root level or internal node network
     '''
-    context = context or safe_rpc_call(tg.root)
+    root_context = safe_rpc_call(tg.root)
+    context = context or root_context
 
     gui_group_name = safe_rpc_call(node.get_param, "gui_group") # is node part of a group?
-    if not gui_group_name:
+    if not gui_group_name and context == root_context: # only query assumed dict if parent is root
         gui_group_name = assign_group_if_needed(node, class_name) # does class have an assumed group
 
     if gui_group_name:
@@ -221,3 +222,4 @@ def set_gui_node_pos(node, class_name, context=None):
         position_node_in_group(node, group_node, gui_group_name, context) # at bottom of group
     else:
         position_node_outside_group(node, context) # position node outside node network boundaries
+
