@@ -197,7 +197,7 @@ def position_node_outside_group(node, context):
     new_pos = calc_new_pos(min_x, min_y, max_x, max_y, "bottom left")
     safe_rpc_call(node.set_param, "gui_node_pos", new_pos)
 
-def set_gui_node_pos(node, class_name, context=None):
+def auto_position_node(node, class_name, context=None):
     '''
     Handler to position the node in the node network.
     The 3 arguments were previously used to create the node.

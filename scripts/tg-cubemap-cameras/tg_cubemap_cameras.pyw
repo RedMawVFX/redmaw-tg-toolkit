@@ -14,7 +14,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
 
-from commons.node_network_layout import set_gui_node_pos
+from commons.node_network_layout import auto_position_node
 
 class CameraConfig:
     def __init__(self, key, source_position, cubemap_group, rotation_value):
@@ -130,7 +130,7 @@ def camera_handler(cubemap_group, source_pos, context):
         config = CameraConfig(key, source_pos, cubemap_group, value)
         camera = create_child(class_name="camera", context=context)
         config.apply_to(camera)
-        set_gui_node_pos(node=camera, class_name="camera", context=context)
+        auto_position_node(node=camera, class_name="camera", context=context)
         if key == "Cube_Face_Forward":
             render_node_handler(camera, context)
 
@@ -150,7 +150,7 @@ def render_node_handler(camera, context):
     render_config = RenderConfig(camera)
     render_node = create_child(class_name="render", context=context)
     render_config.apply_to(render_node, camera)
-    set_gui_node_pos(render_node, class_name="render", context=context)
+    auto_position_node(render_node, class_name="render", context=context)
     # ensures the render node gets captured by a newly created group
     render_config.set_gui_group_param(render_node, "Renderers")
 
@@ -165,7 +165,7 @@ def cubemap_notes_handler(class_name: str, context):
     new_note = create_child(class_name=class_name, context=context)
     note_config = NotesConfig(new_note)
     note_config.apply_to()
-    set_gui_node_pos(node=new_note, class_name=class_name, context=context)
+    auto_position_node(node=new_note, class_name=class_name, context=context)
 
 def cubemap_group_handler(context, use_cubemap_group=False):
     ''' choose which group to use for the cubemaps, the
@@ -177,7 +177,7 @@ def cubemap_group_handler(context, use_cubemap_group=False):
     if use_cubemap_group:
         cubemap_group = create_child(class_name="group", context=context)
         safe_rpc_call(cubemap_group.set_param, "name", "Cube Face Cameras")
-        set_gui_node_pos(node=cubemap_group, class_name="group", context=context)
+        auto_position_node(node=cubemap_group, class_name="group", context=context)
     else:
         cubemap_group = get_node_in_class_by_name(
             class_name="group",
