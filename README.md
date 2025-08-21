@@ -24,9 +24,6 @@ https://pypi.org/project/Pillow/
 OpenEXR module<br>
 https://pypi.org/project/OpenEXR/ <br>
 
-Imath module <br>
-https://pypi.org/project/imath/ <br>
-
 terragen-rpc <br>
 https://github.com/planetside-software/terragen-rpc
 
@@ -41,8 +38,8 @@ Extract the folder structure and files from the ZIP archive.
 
 You can install the dependency modules at a command prompt or terminal as follows:
 <ul>
-Windows: <ul>py -m pip install toml <br> py -m pip install Pillow <br> py -m pip install OpenEXR<br> py -m pip install imath<br>py -m pip install terragen-rpc<br></ul><br>
-MacOS:<ul> python3 -m pip install toml<br> python3 -m pip install Pillow <br> python3 -m pip install OpenEXR<br>python3 -m pip install imath<br> python3 -m pip install terragen-rpc<br></ul>
+Windows: <ul>py -m pip install toml <br> py -m pip install Pillow <br>py -m pip install terragen-rpc<br> py -m pip install OpenEXR<br></ul><br>
+MacOS:<ul> python3 -m pip install toml<br> python3 -m pip install Pillow <br> python3 -m pip install terragen-rpc<br> python3 -m pip install OpenEXR<br></ul>
 </ul>
 
 ### Usage
