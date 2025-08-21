@@ -200,12 +200,11 @@ def position_node_outside_group(node, context):
 def auto_position_node(node, class_name):
     '''
     Handler to position the node in the node network.
-    The 3 arguments were previously used to create the node.
+    The 2 arguments were previously used to create the node.
     
     Args:
         node <obj>: node id
         class_name "str": class of node, i.e. "camera"
-        context <obj>: node id of parent object, i.e. root level or internal node network
     '''
     parent_context = safe_rpc_call(node.parent)
     root_context = safe_rpc_call(tg.root)
