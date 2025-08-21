@@ -27,7 +27,8 @@ class CameraConfig:
         self.name = key
 
     def apply_to(self, camera):
-        safe_rpc_call(camera.set_param, "gui_group", self.cubemap_group.name())
+        if cubemap_group:
+            safe_rpc_call(camera.set_param, "gui_group", self.cubemap_group.name())
         safe_rpc_call(camera.set_param, "position", self.position)
         safe_rpc_call(camera.set_param, "rotation", " ".join(str(x) for x in self.rotation))
         safe_rpc_call(camera.set_param, "use_horizontal_fov", self.use_horizontal_fov)
