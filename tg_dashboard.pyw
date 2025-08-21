@@ -21,32 +21,58 @@ except (ImportError, ModuleNotFoundError):
     sys.exit(1)
 
 class ToolTip:
+    TRACK_X = True
+    TRACK_Y = False
+    OFFSET_X = 12
+    OFFSET_Y = 16
+
     def __init__(self, widget, text):
         self.widget = widget
         self.text = text
         self.tipwindow = None
         widget.bind("<Enter>", self.show_tip)
         widget.bind("<Leave>", self.hide_tip)
+        if self.TRACK_X or self.TRACK_Y:
+            widget.bind("<Motion>", self.move_tip)
 
     def show_tip(self, event=None):
         if self.tipwindow or not self.text:
             return
-        x, y, _, cy = self.widget.bbox("insert")  # bounding box of the widget
-        x = x + self.widget.winfo_rootx() + 20
-        y = y + cy + self.widget.winfo_rooty() + 20
+        mouse_x, mouse_y = event.x_root, event.y_root
+        x = mouse_x + self.OFFSET_X
+        height = self.widget.winfo_height()
+        y = height + self.widget.winfo_rooty() + 4
         self.tipwindow = tw = tk.Toplevel(self.widget)
-        tw.wm_overrideredirect(True)  # Remove window decorations
+        tw.wm_overrideredirect(True)
         tw.wm_geometry(f"+{x}+{y}")
-        label = tk.Label(tw, text=self.text, justify=tk.LEFT,
-                         background="#ffffe0", relief=tk.SOLID, borderwidth=1,
-                         font=("tahoma", "8", "normal"))
+        label = tk.Label(
+            tw, text=self.text, justify=tk.LEFT,
+            background="#ffffe0", relief=tk.SOLID, borderwidth=1,
+            font=("tahoma", "8", "normal")
+        )
         label.pack(ipadx=4, ipady=2)
+
+    def move_tip(self, event=None):
+        if self.tipwindow:
+            x, y = event.x_root + self.OFFSET_X, event.y_root + self.OFFSET_Y
+            if self.TRACK_X and self.TRACK_Y:
+                self.tipwindow.wm_geometry(f"+{x}+{y}")
+            elif self.TRACK_X:
+                _, _, old_x, old_y = self.tipwindow.winfo_geometry().replace("x", "+").split("+")
+                self.tipwindow.wm_geometry(f"+{x}+{old_y}")
+            elif self.TRACK_Y:
+                _, _, old_x, old_y = self.tipwindow.winfo_geometry().replace("x", "+").split("+")
+                self.tipwindow.wm_geometry(f"+{old_x}+{y}")
+
+
 
     def hide_tip(self, event=None):
         tw = self.tipwindow
         self.tipwindow = None
         if tw:
             tw.destroy()
+
+
 
 def execute_script(script_path):
     """Execute the script given by the full path, from its local directory."""
