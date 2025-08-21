@@ -4,7 +4,7 @@
 This script stitches together six cubemap images into a single cubemap texture image.  You can choose the layout of the cubemap texture image and which cubemap image is assigned to each face of the cube. While designed for using images rendered from Terragen, you're not limited by this.  The script is generic enough to accept images created by other applications.
 
 ### Requirements
-This script does not require Terragen 4, Terragen Sky Early Access, or the terragen_rpc_module, but does require Python and the modules listed in the installaton notes of the redmaw-tg-toolkit, including the OpenEXR and Imath modules.<br>
+This script does not require any version of Terragen 4 or the terragen_rpc_module, but does require Python and the modules listed in the installaton notes of the redmaw-tg-toolkit.<br>  
 
 ### Installation
 This script is included with the redmaw-tg-toolkit repository.  No additional installation steps are necessary.  See the Installation notes for the redmaw-tg-toolkit repository. This script shows up under the Utilities tab of the tg_dashboard.pyw script and has been assigned the keyboard shortcut “Shift-s”. <br>
