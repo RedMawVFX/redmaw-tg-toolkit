@@ -197,7 +197,7 @@ def position_node_outside_group(node, context):
     new_pos = calc_new_pos(min_x, min_y, max_x, max_y, "bottom left")
     safe_rpc_call(node.set_param, "gui_node_pos", new_pos)
 
-def auto_position_node(node, class_name, context=None):
+def auto_position_node(node, class_name):
     '''
     Handler to position the node in the node network.
     The 3 arguments were previously used to create the node.
@@ -207,8 +207,9 @@ def auto_position_node(node, class_name, context=None):
         class_name "str": class of node, i.e. "camera"
         context <obj>: node id of parent object, i.e. root level or internal node network
     '''
+    parent_context = safe_rpc_call(node.parent)
     root_context = safe_rpc_call(tg.root)
-    context = context or root_context
+    context = parent_context or root_context
 
     gui_group_name = safe_rpc_call(node.get_param, "gui_group") # is node part of a group?
     if not gui_group_name and context == root_context: # only query assumed dict if parent is root
