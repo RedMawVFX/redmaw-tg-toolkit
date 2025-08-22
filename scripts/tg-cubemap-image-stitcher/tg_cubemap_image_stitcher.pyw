@@ -7,8 +7,12 @@ from tkinter import messagebox
 from collections import namedtuple
 from PIL import Image, ImageTk
 import numpy as np
-import OpenEXR
-import Imath # for EXR support
+try:
+    import OpenEXR
+    import Imath # for EXR support
+    is_exr_supported = True
+except ModuleNotFoundError:
+    is_exr_supported = False # OpenEXR not installed
 
 ImageBundle = namedtuple('Image', ['srgb', 'linear_r', 'linear_g', 'linear_b'])
 
@@ -346,6 +350,9 @@ class CubeMapApp:
 
         if not file_path:
             return
+        if file_path.endswith(".exr") and not is_exr_supported:
+            messagebox.showwarning("OpenEXR module missing", "OpenEXR module not installed.\nSee toolkit documentation or try:\n'pip install OpenEXR'.")
+            return
         self.selected_file_label.config(text=os.path.basename(file_path), fg='black')
         self.detect_faces_from_file(file_path) # Tries to detect six cubemap images from the filename
         self.render_face_thumbnails()
@@ -432,6 +439,9 @@ class CubeMapApp:
                 filetypes=INPUT_FILETYPES
             )
             if not filepath:
+                return "break"
+            if filepath.endswith(".exr") and not is_exr_supported:
+                messagebox.showwarning("OpenEXR module missing", "OpenEXR module not installed.\nSee toolkit documentation or try:\n'pip install OpenEXR'.")
                 return "break"
             try:
                 img = self.load_image_rgb(filepath)
