@@ -36,3 +36,7 @@ project = tg.root()<br>
 new_camera = tg.create_child(project, "camera") # adds a camera node to the project <br>
 new_camera.set_param("gui_group", "Cameras") # makes the camera part of the Cameras group<br>
 auto_position_node(new_camera, "camera") # calls the function to position the node in the UI<br>
+
+### Reference
+Blog post: Node Placement via RPC <br>
+https://planetside.co.uk/blog/node-placement-via-rpc/ <br>
