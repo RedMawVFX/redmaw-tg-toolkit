@@ -12,6 +12,16 @@ import Imath # for EXR support
 
 ImageBundle = namedtuple('Image', ['srgb', 'linear_r', 'linear_g', 'linear_b'])
 
+INPUT_FILETYPES = [("Image Files", "*.jpg *.jpeg *.png *.tif *.tiff *.exr")]
+
+OUTPUT_FILETYPES = [
+    ("TIFF files", "*.tif *.tiff"),
+    ("PNG files", "*.png"),
+    ("JPEG files", "*.jpg"),
+    ("EXR files", "*.exr"),
+    ("All Files", "*.*")
+]
+
 DEFAULT_FACE_LABEL_ALIASES = {
     'forward': 'forward', 'front': 'forward',
     'back': 'back', 'rear': 'back',
@@ -331,7 +341,7 @@ class CubeMapApp:
         Tries to detect all six cubemap faces from the selected filename.
         '''
         file_path = filedialog.askopenfilename(
-            filetypes=[("Image Files", "*.jpg *.jpeg *.png *.tif *.tiff *.exr")]
+            filetypes=INPUT_FILETYPES
         )
 
         if not file_path:
@@ -419,7 +429,7 @@ class CubeMapApp:
 
         def on_face_right_click(event, label):
             filepath = filedialog.askopenfilename(
-                filetypes=[("Image Files", "*.jpg *.jpeg *.png * tiff *.tiff")]
+                filetypes=INPUT_FILETYPES
             )
             if not filepath:
                 return "break"
@@ -760,13 +770,7 @@ class CubeMapApp:
         """Ask for a filename, generate a stitched image, and save it to disk."""
         file_path = filedialog.asksaveasfilename(
             defaultextension=".png",
-            filetypes=[
-                ("TIFF files", "*.tif *.tiff"),
-                ("PNG files", "*.png"),
-                ("JPEG files", "*.jpg"),
-                ("EXR files", "*.exr"),
-                ("All Files", "*.*")
-            ]
+            filetypes=OUTPUT_FILETYPES
         )
 
         if not file_path:
