@@ -1,7 +1,7 @@
+'''randomly adds a cloud layer to the project based on one of the cloud presets 
+located in the Terragen GUI or the Quick Node Palette.'''
 import sys
 import os
-from tkinter import *
-from tkinter import ttk
 from tkinter import messagebox
 import random
 import traceback
@@ -36,7 +36,8 @@ from commons.node_network_layout import auto_position_node
 # v3 clouds: class, cloud alt, depth, radius, density
 # easy clouds: class, type, model, coverage, variation, growth, base alt, depth, radius, density
 
-def get_cloud_params_by_class(x): # returns list of preset cloud layer values from the cloud layer dictionary below
+def get_cloud_params_by_class(x):
+    '''returns list of preset cloud layer values from the cloud layer dictionary below '''
     cloud_from_dict = cloud_layer_dict[x]
     clouds_with_random_altitudes = [0,2,7]
     clouds_with_random_models = [3,4,8,9,10,14]
@@ -55,11 +56,13 @@ def get_cloud_params_by_class(x): # returns list of preset cloud layer values fr
         cloud_from_dict[2] = random_model
     return cloud_from_dict
 
-def get_random_value(min,max): # returns a string for random value between min and max
+def get_random_value(min, max):
+    '''returns a string for random value between min and max'''
     string_of_integer = str(random.randint(min,max))
     return string_of_integer
 
-def get_connected_node(node,path): # returns node id of node assigned to atmosphere shader or none
+def get_connected_node(node,path):
+    '''returns node id of node assigned to atmosphere shader or none'''
     if path == "":
         return None
     # check for forward slash
@@ -81,7 +84,8 @@ def get_connected_node(node,path): # returns node id of node assigned to atmosph
         return test_id
     return None
 
-def add_cloud_to_project(add_cloud): # adds a cloud layer to the project, even if there are no planets.
+def add_cloud_to_project(add_cloud):
+    '''adds a cloud layer to the project, even if there are no planets.'''
     atmo_shader_name = ""
     atmo_shader_id = None
     try:
@@ -100,17 +104,20 @@ def add_cloud_to_project(add_cloud): # adds a cloud layer to the project, even i
 
         new_cloud_id = tg.create_child(new_parent,add_cloud[0])
 
-        if add_cloud[0] == "cloud_layer_v2": # v2 clouds - class, cloud alt, depth, density, rendering method, input node
+        if add_cloud[0] == "cloud_layer_v2":
+            # v2 clouds - class, cloud alt, depth, density, rendering method, input node
             new_cloud_id.set_param("cloud_altitude",add_cloud[1])
             new_cloud_id.set_param("cloud_depth",add_cloud[2])
             new_cloud_id.set_param("cloud_density",add_cloud[3])
             new_cloud_id.set_param("rendering_method",add_cloud[4])
-        elif add_cloud[0] == "cloud_layer_v3": # v3 clouds - class, cloud alt, depth, radius, density, input node
+        elif add_cloud[0] == "cloud_layer_v3":
+            # v3 clouds - class, cloud alt, depth, radius, density, input node
             new_cloud_id.set_param("cloud_altitude",add_cloud[1])
             new_cloud_id.set_param("cloud_depth",add_cloud[2])
             new_cloud_id.set_param("radius",add_cloud[3])
             new_cloud_id.set_param("cloud_density",add_cloud[4])
-        elif add_cloud[0] == "easy_cloud": # easy clouds - class, type, model, coverage, variation, growth, base alt, depth, radius, density, input node
+        elif add_cloud[0] == "easy_cloud":
+            # easy clouds - class, type, model, coverage, variation, growth, base alt, depth, radius, density, input node
             new_cloud_id.set_param("input_node",atmo_shader_name)
             new_cloud_id.set_param("local_sphere_radius",add_cloud[8])
             new_cloud_id.set_param("easycloud_type",add_cloud[1])
@@ -121,12 +128,14 @@ def add_cloud_to_project(add_cloud): # adds a cloud layer to the project, even i
             new_cloud_id.set_param("cloud_depth",add_cloud[7])
             new_cloud_id.set_param("cloud_density",add_cloud[9])
 
-        new_cloud_id.set_param("input_node",atmo_shader_name) # set cloud's main input node to previous node assigned to planet's atmosphere shader input
+        # set cloud's main input node to previous node assigned to planet's atmosphere shader input
+        new_cloud_id.set_param("input_node",atmo_shader_name)
 
         auto_position_node(new_cloud_id, add_cloud[0])
 
         if planets:
-            planets[0].set_param("atmosphere_shader",new_cloud_id.name()) # set planet atmosphere shader to this cloud node
+            # set planet atmosphere shader to this cloud node
+            planets[0].set_param("atmosphere_shader",new_cloud_id.name())
 
     except ConnectionError as e:
         popup_warning("Terragen RPC connection error",str(e))
@@ -138,6 +147,7 @@ def add_cloud_to_project(add_cloud): # adds a cloud layer to the project, even i
         popup_warning("Terragen RPC API error",traceback.format_exc())
 
 def popup_warning(title,message):
+    '''Opens window with message'''
     messagebox.showwarning(title=title,message=message)
 
 cloud_layer_dict = {
@@ -159,6 +169,11 @@ cloud_layer_dict = {
 }
 
 # main
-random_cloud_type = random.randint(0,14) # randomly pick a type of cloud layer
-cloud_layer_params = get_cloud_params_by_class(random_cloud_type) # get the preset list of parameters
-add_cloud_to_project(cloud_layer_params) # send string to terragen via rpc and add cloud
+# randomly pick a type of cloud layer
+random_cloud_type = random.randint(0,14)
+
+# get the preset list of parameters
+cloud_layer_params = get_cloud_params_by_class(random_cloud_type)
+
+# send string to terragen via rpc and add cloud
+add_cloud_to_project(cloud_layer_params)
