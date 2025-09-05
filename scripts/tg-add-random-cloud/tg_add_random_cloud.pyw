@@ -32,7 +32,7 @@ from commons.node_network_layout import auto_position_node
 #14 - Easy cloud from quick node palette (two models)
 
 # list of parameter by class
-# v2 clouds: class, cloud alt, depth, density , rendering method 
+# v2 clouds: class, cloud alt, depth, density , rendering method
 # v3 clouds: class, cloud alt, depth, radius, density
 # easy clouds: class, type, model, coverage, variation, growth, base alt, depth, radius, density
 
@@ -63,7 +63,7 @@ def get_connected_node(node,path): # returns node id of node assigned to atmosph
     if path == "":
         return None
     # check for forward slash
-    if path[0] == "/": 
+    if path[0] == "/":
         # test to try to find node at root level
         test_path = path
         test_id = tg.node_by_path(test_path)
@@ -95,9 +95,9 @@ def add_cloud_to_project(add_cloud): # adds a cloud layer to the project, even i
 
         if atmo_shader_id:
             new_parent = atmo_shader_id.parent()
-        else: 
+        else:
             new_parent = project
-        
+
         new_cloud_id = tg.create_child(new_parent,add_cloud[0])
 
         if add_cloud[0] == "cloud_layer_v2": # v2 clouds - class, cloud alt, depth, density, rendering method, input node
@@ -142,7 +142,7 @@ def popup_warning(title,message):
 
 cloud_layer_dict = {
     0 : ["cloud_layer_v2","10000","10","0.01","0"],
-    1 : ["easy_cloud","3","1","1.0","0.5","1","8000","100","150000","0.001"], 
+    1 : ["easy_cloud","3","1","1.0","0.5","1","8000","100","150000","0.001"],
     2 : ["cloud_layer_v3","4000","150","50000","0.1"],
     3 : ["easy_cloud","2","1","0.4","0.5","0.5","4000","2000","100000","0.05"],
     4 : ["easy_cloud","2","1","0.4","0.5","0.5","4000","6000","200000","0.05"],
