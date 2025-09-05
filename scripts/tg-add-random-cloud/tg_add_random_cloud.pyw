@@ -1,9 +1,18 @@
+import sys
+import os
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import random
 import traceback
 import terragen_rpc as tg
+
+# Add the parent directory (scripts) to sys.path in order to import from commons
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
+from commons.node_network_layout import auto_position_node
 
 # terragen cloud layer presets via add cloud button (21 possibilities from 15 layers)
 # 0 = Hi-level Cirrus 2d (v2)
@@ -113,6 +122,8 @@ def add_cloud_to_project(add_cloud): # adds a cloud layer to the project, even i
             new_cloud_id.set_param("cloud_density",add_cloud[9])
 
         new_cloud_id.set_param("input_node",atmo_shader_name) # set cloud's main input node to previous node assigned to planet's atmosphere shader input
+
+        auto_position_node(new_cloud_id, add_cloud[0])
 
         if planets:
             planets[0].set_param("atmosphere_shader",new_cloud_id.name()) # set planet atmosphere shader to this cloud node
