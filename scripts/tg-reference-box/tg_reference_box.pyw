@@ -550,10 +550,21 @@ for index, key in enumerate(colour_dict):
         width, height = 60, 18
         button_images[key] = ImageTk.PhotoImage(Image.new("RGB", (width, height), colour))
         # Create a button with the solid colour image
-        but = tk.Button(frame2, image=button_images[key], width=width, height=height, command=lambda key=key: on_colour_button_click(key))
+        but = tk.Button(
+            frame2,
+            image=button_images[key],
+            width=width,
+            height=height,
+            command=lambda key=key: on_colour_button_click(key)
+        )
     else:
         # Create a button with a coloured background
-        but = tk.Button(frame2, bg=key, width=5, command=lambda key=key: on_colour_button_click(key))
+        but = tk.Button(
+            frame2,
+            bg=key,
+            width=5,
+            command=lambda key=key: on_colour_button_click(key)
+        )
     row = index // 6 + 1
     col = index % 6
     but.grid(row=row, column=col, padx=2, pady=2)
