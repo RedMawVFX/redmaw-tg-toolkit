@@ -10,11 +10,20 @@ box is based on origin or valid coordinates in the clipboard.
 The menubar includes a list of presets.
 '''
 
+import sys
 import os.path
 import platform
 import traceback
 import tkinter as tk
 import terragen_rpc as tg
+
+# Add the parent directory (scripts) to sys.path in order to import from commons
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
+from commons.node_network_layout import auto_position_node
+
 if platform.system() == "Darwin":
     # we'll use these to create coloured buttons on the Mac
     from PIL import Image, ImageTk
@@ -130,6 +139,7 @@ def add_bounding_box(colour, scale_final) -> None:
         project = tg.root()
         bbox = tg.create_child(project,"bounding_box")
         set_bbox_params(colour, scale_final, bbox)
+        auto_position_node(bbox, "bounding_box")
     except ConnectionError as e:
         set_message("error", msg="Terragen RPC connection error" + str(e))
     except TimeoutError as e:
