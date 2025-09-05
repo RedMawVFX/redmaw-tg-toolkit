@@ -2,10 +2,18 @@
 Adds a landmark object to the project, either at the origin of the project
 or the coordinates in the clipboard.
 '''
+import sys
 import os.path
 import platform
 import tkinter as tk
 import terragen_rpc as tg
+
+# Add the parent directory (scripts) to sys.path in order to import from commons
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
+from commons.node_network_layout import auto_position_node
 
 gui = tk.Tk()
 gui.title(os.path.basename(__file__))
@@ -92,6 +100,7 @@ def rpc_landmark(landmark_values) -> None:
         new_landmark.set_param('position',landmark_values[2])
         new_landmark.set_param('scale',landmark_values[1])
         new_landmark.set_param('colour',landmark_values[3])
+        auto_position_node(new_landmark, 'landmark')
         rpc_error.set(False)
     except ConnectionError as e:
         formatted_message = format_message("Terragen RPC connection error: " + str(e))
