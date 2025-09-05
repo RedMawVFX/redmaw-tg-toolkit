@@ -13,7 +13,8 @@ assume_node_in_group_dict = {
     "lake": "Water",
     "water_shader": "Water",
     "null": "Objects",
-    "bounding_box": "Objects"
+    "bounding_box": "Objects",
+    "landmark": "Objects",
 }
 
 def message_info(title, message):
